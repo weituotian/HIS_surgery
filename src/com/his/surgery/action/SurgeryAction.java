@@ -51,9 +51,6 @@ public class SurgeryAction extends ActionSupport {
     //返回的分页，装有list
     private Page<Surgery> mypage;
 
-    //请求的页面类型，新建还是修改
-    private String type;
-
     /**
      * 提交手术申请【json】
      *
@@ -149,33 +146,6 @@ public class SurgeryAction extends ActionSupport {
         return SUCCESS;
     }
 
-    /**
-     * 页面分发
-     *
-     * @return
-     */
-    public String dispatch() {
-        switch (type) {
-            //手术申请
-            case "add":
-                return "page";
-            //手术申请修改
-            case "update":
-                surgery = surgeryService.findById(sid);
-                return "page";
-            //手术申请预览
-            case "view":
-                surgery = surgeryService.findById(sid);
-                return "page";
-            case "arrange":
-                surgery = surgeryService.eagerFindById(sid);
-                return "page2";
-            default:
-                //错误页面
-                return "errorpage";
-        }
-    }
-
     public Surgery getSurgery() {
         return surgery;
     }
@@ -262,14 +232,6 @@ public class SurgeryAction extends ActionSupport {
 
     public void setMypage(Page<Surgery> mypage) {
         this.mypage = mypage;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getSid() {

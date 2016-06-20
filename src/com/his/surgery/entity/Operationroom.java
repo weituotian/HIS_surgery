@@ -1,6 +1,7 @@
 package com.his.surgery.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * 手术室
@@ -9,7 +10,7 @@ import javax.persistence.*;
 public class Operationroom {
     private int num;
     private String name;
-    private Surgery surgeries;
+    private List<Surgery> surgeries;
 
     @Id
     @Column(name = "num", nullable = false)
@@ -51,12 +52,12 @@ public class Operationroom {
         return result;
     }
 
-    @OneToOne(mappedBy = "room")
-    public Surgery getSurgeries() {
+    @OneToMany(mappedBy = "room")
+    public List<Surgery> getSurgeries() {
         return surgeries;
     }
 
-    public void setSurgeries(Surgery surgeries) {
+    public void setSurgeries(List<Surgery> surgeries) {
         this.surgeries = surgeries;
     }
 }

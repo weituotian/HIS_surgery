@@ -28,6 +28,6 @@ public class RoomService implements IRoomService {
 
     @Override
     public List<Operationroom> getlist() {
-        return roomDao.findListByHQL("from Operationroom where 1");
+        return roomDao.findListByHQL("from Operationroom");
     }
 }

@@ -30,12 +30,25 @@ public class SurgeryArrangeAction extends ActionSupport {
     //手术室id
     private int room;
 
+    //返回的消息
+    private String msg;
+    //返回是否成功
+    private boolean success;
+
     /**
      * 更新安排
      * @return
      */
     public String arrange(){
-        surgeryService.updateArrange(sid,dids,nids,room);
+        try {
+            surgeryService.updateArrange(sid,dids,nids,room);
+            success = true;
+            msg = "修改安排成功！";
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+            msg = "修改安排失败！";
+        }
         return SUCCESS;
     }
 
@@ -69,5 +82,21 @@ public class SurgeryArrangeAction extends ActionSupport {
 
     public void setRoom(int room) {
         this.room = room;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }

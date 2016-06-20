@@ -176,7 +176,7 @@ public class Surgery {
         this.nurses = nurses;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "num", referencedColumnName = "num", foreignKey = @ForeignKey(name = "FK_have_room"))
     public Operationroom getRoom() {
         return room;

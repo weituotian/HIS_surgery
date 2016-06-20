@@ -33,8 +33,8 @@
     <jsp:include page="common/surgery2.jsp"/>
 
     <div class="row">
-        <a class="btn btn-primary">安排</a>
-        <a class="btn btn-primary">取消安排</a>
+        <a id="btn_arrange" class="btn btn-primary">安排</a>
+        <a id="btn_cancel" class="btn btn-primary">取消安排</a>
     </div>
 </div>
 <%--模态框--%>
@@ -64,8 +64,8 @@
         /**
          * 添加元素
          */
-        function addTdElement($td, id, text) {
-            var $maindiv = $('<div></div>').attr("did", id).appendTo($td);
+        function addTdElement($td, property, id, text) {
+            var $maindiv = $('<div></div>').attr(property, id).appendTo($td);
             var $name = $('<span>' + text + '</span>').appendTo($maindiv);
             <%--减号--%>
             var $button = $('<button type="button" class="btn btn-default btn-link"><span class="glyphicon glyphicon-minus"></span></button>').appendTo($maindiv);
@@ -104,7 +104,7 @@
                     showDialog(rdata.msg);
                 } else {
                     //成功
-                    addTdElement($td_assist, rdata.doctor.id, rdata.doctor.name);
+                    addTdElement($td_assist, "did", rdata.doctor.id, rdata.doctor.name);
                 }
             });
         });
@@ -123,7 +123,7 @@
                     showDialog(rdata.msg);
                 } else {
                     //成功
-                    addTdElement($td_nurse, rdata.nurse.nurseId, rdata.nurse.nurseName);
+                    addTdElement($td_nurse, "nid", rdata.nurse.nurseId, rdata.nurse.nurseName);
                 }
             })
         });
@@ -151,7 +151,54 @@
             });
         });
 
+        //安排按钮
+        var $btn_arrange = $('#btn_arrange');
+        $btn_arrange.click(function () {
+            //被点击
 
+            //验证
+            var assistArr = [];
+            $td_assist.find('div').each(function () {
+                var $this = $(this);
+                assistArr.push($this.attr("did"));
+            });
+            var nurseArr = [];
+            $td_nurse.find('div').each(function () {
+                var $this = $(this);
+                nurseArr.push($this.attr("nid"));
+            });
+
+            $.ajax({
+                url: "/surgery/arrange",
+                type: "POST",
+                datatype: "json",
+                timeout: 3000,
+                data: {
+                    sid: ${requestScope.sid},
+                    //医生数组
+                    dids: assistArr,
+                    //护士数组
+                    nids: nurseArr,
+                    //手术室id
+                    room: $('#input_room').val()
+                },
+                //数组发送
+                traditional: true,
+                success: function (rdata, textStatus) {
+                    //var data = $.parseJSON(rdata);
+                    //回调函数
+                    if (rdata.success) {
+
+                    }else{
+
+                    }
+                    showDialog(rdata.msg);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest + textStatus + errorThrown);
+                }
+            });
+        });
     });
 </script>
 </body>

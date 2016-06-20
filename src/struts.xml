@@ -76,11 +76,11 @@
         </action>
         <action name="arrange" class="com.his.surgery.action.SurgeryArrangeAction" method="arrange">
             <result type="json">
-                <param name="root">dids</param>
+                <param name="includeProperties">success,msg</param>
             </result>
         </action>
         <!--页面转发-->
-        <action name="page" class="com.his.surgery.action.SurgeryAction" method="dispatch">
+        <action name="page" class="com.his.surgery.action.SurgeryPageAction" method="dispatch">
             <!--新建页面 add-->
             <!--修改页面 modify-->
             <result name="page">/jsp/surgery_apply.jsp</result>

@@ -23,7 +23,6 @@ public class RoomAction extends ActionSupport {
     @Qualifier("roomService")
     private IRoomService roomService;
 
-
     //传来的参数，指定医生的工号
     private Integer id;
     //返回的消息
