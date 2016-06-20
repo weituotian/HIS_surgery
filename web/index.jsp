@@ -9,9 +9,12 @@
 <html>
   <head>
     <title>$Title$</title>
+
   </head>
   <body>
   $END$
   <a href="/surgery/list/size_10_page_1" target="_blank">列表</a>
+  <a href="#about"><i class="icon-user icon-white"></i> User</a>
+
   </body>
 </html>

@@ -1,26 +1,29 @@
 package com.his.surgery.action;
 
-import com.his.surgery.entity.Doctor;
-import com.his.surgery.service.IDoctorService;
+import com.his.surgery.entity.Nurse;
+import com.his.surgery.entity.Operationroom;
+import com.his.surgery.service.INurseService;
+import com.his.surgery.service.IRoomService;
 import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 /**
  *
  */
-@Controller("doctorAction")
+@Controller("roomAction")
 @Scope(value = "prototype")
-public class DoctorAction extends ActionSupport {
+public class RoomAction extends ActionSupport {
 
     @Autowired
-    @Qualifier("doctorService")
-    private IDoctorService doctorService;
+    @Qualifier("roomService")
+    private IRoomService roomService;
 
-    //返回的医生
-    private Doctor doctor;
+
     //传来的参数，指定医生的工号
     private Integer id;
     //返回的消息
@@ -28,24 +31,11 @@ public class DoctorAction extends ActionSupport {
     //返回是否成功
     private boolean success;
 
-    public String getdetail(){
-        doctor = doctorService.getDoctor(id);
-        if (doctor != null) {
-            success = true;
-            msg = "医生信息获取成功！";
-        }else {
-            success = false;
-            msg = "没有该医生的信息，请重新输入工号！";
-        }
+    private List<Operationroom> list;
+
+    public String getlist(){
+        list = roomService.getlist();
         return SUCCESS;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
     }
 
     public Integer getId() {
@@ -70,5 +60,13 @@ public class DoctorAction extends ActionSupport {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public List<Operationroom> getList() {
+        return list;
+    }
+
+    public void setList(List<Operationroom> list) {
+        this.list = list;
     }
 }

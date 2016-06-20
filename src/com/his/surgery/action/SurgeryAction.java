@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import java.sql.Timestamp;
 
 /**
- * Created by ange on 2016/6/19.
+ * 处理手术申请和页面转发
  */
 @Controller("surgeryAction")
 @Scope(value = "prototype")
@@ -55,7 +55,7 @@ public class SurgeryAction extends ActionSupport {
     private String type;
 
     /**
-     * 提交手术申请
+     * 提交手术申请【json】
      *
      * @return
      */
@@ -87,10 +87,11 @@ public class SurgeryAction extends ActionSupport {
     }
 
     /**
-     * 保存手术申请
+     * 保存手术申请【json】
+     *
      * @return
      */
-    public String save(){
+    public String save() {
         Surgery surgery = surgeryService.findById(sid);
 
         Doctor doctor = new Doctor();
@@ -119,22 +120,11 @@ public class SurgeryAction extends ActionSupport {
     }
 
     /**
-     * 分页显示list
+     * 废弃手术申请【json】
      *
      * @return
      */
-    public String list() {
-        //
-        PageRequest pageRequest = new PageRequest(page, size);
-        mypage = surgeryService.getPageList(pageRequest);
-        return SUCCESS;
-    }
-
-    /**
-     * 废弃手术申请
-     * @return
-     */
-    public String dispose(){
+    public String dispose() {
         try {
             surgeryService.dispose(sid);
             success = true;
@@ -148,21 +138,40 @@ public class SurgeryAction extends ActionSupport {
     }
 
     /**
+     * 分页显示手术申请list
+     *
+     * @return
+     */
+    public String list() {
+        //
+        PageRequest pageRequest = new PageRequest(page, size);
+        mypage = surgeryService.getPageList(pageRequest);
+        return SUCCESS;
+    }
+
+    /**
      * 页面分发
      *
      * @return
      */
     public String dispatch() {
         switch (type) {
+            //手术申请
             case "add":
                 return "page";
+            //手术申请修改
             case "update":
                 surgery = surgeryService.findById(sid);
                 return "page";
+            //手术申请预览
             case "view":
                 surgery = surgeryService.findById(sid);
                 return "page";
+            case "arrange":
+                surgery = surgeryService.eagerFindById(sid);
+                return "page2";
             default:
+                //错误页面
                 return "errorpage";
         }
     }

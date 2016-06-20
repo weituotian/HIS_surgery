@@ -11,20 +11,22 @@ import java.util.List;
  */
 public interface ISurgeryService {
     /**
-     * 添加
+     * 添加手术
      * @param surgery
      */
     void save(Surgery surgery);
 
     /**
-     * 寻找
+     * 寻找手术
      * @param id 编号
      * @return
      */
     Surgery findById(Integer id);
 
+    Surgery eagerFindById(Integer id);
+
     /**
-     * 更新
+     * 更新手术
      * @param surgery
      */
     void update(Surgery surgery);
@@ -36,5 +38,11 @@ public interface ISurgeryService {
      */
     Page<Surgery> getPageList(PageRequest pageRequest);
 
+    /**
+     * 删除手术申请
+     * @param id
+     */
     void dispose(Integer id);
+
+    void updateArrange(int id, int[] doctor_ids,int[] nurse_ids,int room);
 }

@@ -1,7 +1,9 @@
 package com.his.surgery.action;
 
 import com.his.surgery.entity.Doctor;
+import com.his.surgery.entity.Nurse;
 import com.his.surgery.service.IDoctorService;
+import com.his.surgery.service.INurseService;
 import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,16 +13,16 @@ import org.springframework.stereotype.Controller;
 /**
  *
  */
-@Controller("doctorAction")
+@Controller("nurseAction")
 @Scope(value = "prototype")
-public class DoctorAction extends ActionSupport {
+public class NurseAction extends ActionSupport {
 
     @Autowired
-    @Qualifier("doctorService")
-    private IDoctorService doctorService;
+    @Qualifier("nurseService")
+    private INurseService nurseService;
 
     //返回的医生
-    private Doctor doctor;
+    private Nurse nurse;
     //传来的参数，指定医生的工号
     private Integer id;
     //返回的消息
@@ -29,23 +31,23 @@ public class DoctorAction extends ActionSupport {
     private boolean success;
 
     public String getdetail(){
-        doctor = doctorService.getDoctor(id);
-        if (doctor != null) {
+        nurse = nurseService.getNurse(id);
+        if (nurse != null) {
             success = true;
-            msg = "医生信息获取成功！";
+            msg = "护士信息获取成功！";
         }else {
             success = false;
-            msg = "没有该医生的信息，请重新输入工号！";
+            msg = "没有该护士的信息，请重新输入工号！";
         }
         return SUCCESS;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public Nurse getNurse() {
+        return nurse;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setNurse(Nurse nurse) {
+        this.nurse = nurse;
     }
 
     public Integer getId() {

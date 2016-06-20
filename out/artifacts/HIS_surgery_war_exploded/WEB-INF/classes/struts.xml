@@ -47,9 +47,18 @@
         </action>
     </package>
 
+    <!--护士接口-->
+    <package name="nurse" namespace="/nurse" extends="json-default">
+        <action name="*" class="com.his.surgery.action.NurseAction" method="{1}">
+            <result type="json">
+                <param name="includeProperties">nurse.*,success,msg</param>
+            </result>
+        </action>
+    </package>
+
     <!--手术接口-->
     <package name="surgery" namespace="/surgery" extends="json-default">
-        <!--添加请求-->
+        <!--请求s-->
         <action name="add" class="com.his.surgery.action.SurgeryAction" method="request">
             <result type="json">
                 <param name="includeProperties">success,msg</param>
@@ -65,13 +74,20 @@
                 <param name="includeProperties">success,msg</param>
             </result>
         </action>
+        <action name="arrange" class="com.his.surgery.action.SurgeryArrangeAction" method="arrange">
+            <result type="json">
+                <param name="root">dids</param>
+            </result>
+        </action>
+        <!--页面转发-->
         <action name="page" class="com.his.surgery.action.SurgeryAction" method="dispatch">
             <!--新建页面 add-->
             <!--修改页面 modify-->
             <result name="page">/jsp/surgery_apply.jsp</result>
+            <result name="page2">/jsp/surgery_arrange.jsp</result>
             <result name="errorpage">/jsp/error.jsp</result>
         </action>
-        <!--显示列表-->
+        <!--显示手术申请列表-->
         <action name="list" class="com.his.surgery.action.SurgeryAction" method="list">
             <result>/jsp/surgery_apply_list.jsp</result>
             <!--返回json方式 不采用-->

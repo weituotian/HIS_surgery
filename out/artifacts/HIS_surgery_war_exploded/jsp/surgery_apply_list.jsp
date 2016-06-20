@@ -65,7 +65,7 @@
                         <a class="btn btn-primary dispose" sid="<s:property value="#each.code"/>">
                             废弃
                         </a>
-                        <a class="btn btn-primary " sid="<s:property value="#each.code"/> ">
+                        <a class="btn btn-primary " href="/surgery/page_arrange/<s:property value="#each.code"/>">
                             安排
                         </a>
                     </td>

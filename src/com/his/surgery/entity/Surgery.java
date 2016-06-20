@@ -1,9 +1,8 @@
 package com.his.surgery.entity;
 
-import org.apache.struts2.json.annotations.JSON;
-
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * 手术
@@ -20,6 +19,9 @@ public class Surgery {
     private Anaesthesia ana;
     private Doctor doctor;
     private Patient patient;
+    private Set<Doctor> assists;
+    private Set<Nurse> nurses;
+    private Operationroom room;
 
     @Id
     @Column(name = "code", nullable = false)
@@ -121,7 +123,7 @@ public class Surgery {
         return result;
     }
 
-    @OneToOne(mappedBy = "sur",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "sur", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     public Anaesthesia getAna() {
         return ana;
     }
@@ -130,8 +132,8 @@ public class Surgery {
         this.ana = ana;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id",foreignKey = @ForeignKey(name = "FK_macin_actor"))
+    @ManyToOne(fetch = FetchType.LAZY,targetEntity = Doctor.class,optional = false)
+    @JoinColumn(name = "doctor_id", foreignKey = @ForeignKey(name = "FK_macin_actor"))
     public Doctor getDoctor() {
         return doctor;
     }
@@ -141,12 +143,46 @@ public class Surgery {
     }
 
     @ManyToOne
-    @JoinColumn(name = "patient_id",nullable = false,foreignKey = @ForeignKey(name = "FK_having_surgery"))
+    @JoinColumn(name = "patient_id", nullable = false, foreignKey = @ForeignKey(name = "FK_having_surgery"))
     public Patient getPatient() {
         return patient;
     }
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "surgery_assistants", schema = "his",
+            joinColumns = @JoinColumn(name = "code", referencedColumnName = "code", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id", nullable = false))
+    public Set<Doctor> getAssists() {
+        return assists;
+    }
+
+    public void setAssists(Set<Doctor> assists) {
+        this.assists = assists;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "surgery_nurse", schema = "his",
+            joinColumns = @JoinColumn(name = "code", referencedColumnName = "code", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "nurse_id", referencedColumnName = "nurse_id", nullable = false))
+    public Set<Nurse> getNurses() {
+        return nurses;
+    }
+
+    public void setNurses(Set<Nurse> nurses) {
+        this.nurses = nurses;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "num", referencedColumnName = "num", foreignKey = @ForeignKey(name = "FK_have_room"))
+    public Operationroom getRoom() {
+        return room;
+    }
+
+    public void setRoom(Operationroom room) {
+        this.room = room;
     }
 }

@@ -235,7 +235,7 @@
             }
 
             //标志输入成功
-            $t_id.attr("success", true);
+            $ele.attr("success", true);
             $.ajax({
                 url: "/patient/getdetail",
                 type: "POST",
@@ -284,7 +284,7 @@
             }
 
             //标志输入成功
-            $sur_doctor.attr("success", true);
+            $ele.attr("success", true);
             $.ajax({
                 url: "/doctor/getdetail",
                 type: "POST",

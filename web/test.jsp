@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: ange
@@ -12,5 +13,12 @@
 </head>
 <body>
 恭喜你成功通过测试！
+<form action="www.baidu.com" method="post">
+    <input type="checkbox" name="sss" value="123">
+    <input type="checkbox" name="sss" value="456">
+    <input type="checkbox" name="sss" value="789">
+    <input type="checkbox" name="sss" value="123">
+    <input type="submit" value="提交">
+</form>
 </body>
 </html>
