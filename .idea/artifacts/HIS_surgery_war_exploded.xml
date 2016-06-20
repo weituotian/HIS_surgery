@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="HIS_surgery:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/HIS_surgery_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="HIS_surgery" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="ssh" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="HIS_surgery/web/Web" />
+    </root>
+  </artifact>
+</component>

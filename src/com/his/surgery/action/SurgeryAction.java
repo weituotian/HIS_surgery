@@ -1,0 +1,273 @@
+package com.his.surgery.action;
+
+import com.his.surgery.domain.Page;
+import com.his.surgery.domain.PageRequest;
+import com.his.surgery.entity.Doctor;
+import com.his.surgery.entity.Patient;
+import com.his.surgery.entity.Surgery;
+import com.his.surgery.service.ISurgeryService;
+import com.opensymphony.xwork2.ActionSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import java.sql.Timestamp;
+
+/**
+ * Created by ange on 2016/6/19.
+ */
+@Controller("surgeryAction")
+@Scope(value = "prototype")
+public class SurgeryAction extends ActionSupport {
+
+    @Autowired
+    @Qualifier("surgeryService")
+    private ISurgeryService surgeryService;
+
+    //手术
+    private Surgery surgery;
+    //手术id
+    private int sid;
+    //手术名称
+    private String name;
+    //疾病
+    private String disease;
+    //申请时间
+    private Long time;
+    //病人id
+    private int pid;
+    //医生id
+    private int did;
+
+    //返回信息
+    private String msg;
+    private boolean success;
+
+    //分页请求
+    private int page;
+    private int size;
+
+    //返回的分页，装有list
+    private Page<Surgery> mypage;
+
+    //请求的页面类型，新建还是修改
+    private String type;
+
+    /**
+     * 提交手术申请
+     *
+     * @return
+     */
+    public String request() {
+        Doctor doctor = new Doctor();
+        doctor.setId(did);
+
+        Patient patient = new Patient();
+        patient.setId(pid);
+
+        Surgery surgery = new Surgery();
+        surgery.setName(name);
+        surgery.setState(0);
+        surgery.setDisease(disease);
+        surgery.setApplyTime(new Timestamp(time));
+        surgery.setDoctor(doctor);
+        surgery.setPatient(patient);
+
+        try {
+            surgeryService.save(surgery);
+            success = true;
+            msg = "添加成功！";
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+            msg = "添加出错啦！";
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * 保存手术申请
+     * @return
+     */
+    public String save(){
+        Surgery surgery = surgeryService.findById(sid);
+
+        Doctor doctor = new Doctor();
+        doctor.setId(did);
+
+        Patient patient = new Patient();
+        patient.setId(pid);
+
+        surgery.setName(name);
+        //surgery.setState(0);
+        surgery.setDisease(disease);
+        surgery.setApplyTime(new Timestamp(time));
+        surgery.setDoctor(doctor);
+        surgery.setPatient(patient);
+
+        try {
+            surgeryService.update(surgery);
+            success = true;
+            msg = "保存成功！";
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+            msg = "保存出错啦！";
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * 分页显示list
+     *
+     * @return
+     */
+    public String list() {
+        //
+        PageRequest pageRequest = new PageRequest(page, size);
+        mypage = surgeryService.getPageList(pageRequest);
+        return SUCCESS;
+    }
+
+    /**
+     * 废弃手术申请
+     * @return
+     */
+    public String dispose(){
+        try {
+            surgeryService.dispose(sid);
+            success = true;
+            msg = "删除成功！";
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+            msg = "删除失败！";
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * 页面分发
+     *
+     * @return
+     */
+    public String dispatch() {
+        switch (type) {
+            case "add":
+                return "page";
+            case "update":
+                surgery = surgeryService.findById(sid);
+                return "page";
+            case "view":
+                surgery = surgeryService.findById(sid);
+                return "page";
+            default:
+                return "errorpage";
+        }
+    }
+
+    public Surgery getSurgery() {
+        return surgery;
+    }
+
+    public void setSurgery(Surgery surgery) {
+        this.surgery = surgery;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDisease() {
+        return disease;
+    }
+
+    public void setDisease(String disease) {
+        this.disease = disease;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    public int getDid() {
+        return did;
+    }
+
+    public void setDid(int did) {
+        this.did = did;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public Page<Surgery> getMypage() {
+        return mypage;
+    }
+
+    public void setMypage(Page<Surgery> mypage) {
+        this.mypage = mypage;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
+}
