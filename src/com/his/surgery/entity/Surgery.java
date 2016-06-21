@@ -22,6 +22,8 @@ public class Surgery {
     private Set<Doctor> assists;
     private Set<Nurse> nurses;
     private Operationroom room;
+    //手术记录
+    private SurgeryLog log;
 
     @Id
     @Column(name = "code", nullable = false)
@@ -132,7 +134,7 @@ public class Surgery {
         this.ana = ana;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY,targetEntity = Doctor.class,optional = false)
+    @ManyToOne(fetch = FetchType.LAZY,targetEntity = Doctor.class)
     @JoinColumn(name = "doctor_id", foreignKey = @ForeignKey(name = "FK_macin_actor"))
     public Doctor getDoctor() {
         return doctor;
@@ -185,4 +187,14 @@ public class Surgery {
     public void setRoom(Operationroom room) {
         this.room = room;
     }
+
+    @OneToOne(mappedBy = "surgery")
+    public SurgeryLog getLog() {
+        return log;
+    }
+
+    public void setLog(SurgeryLog log) {
+        this.log = log;
+    }
 }
+

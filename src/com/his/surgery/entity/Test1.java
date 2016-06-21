@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class Test1 {
     private int id;
     private String str1;
+    private Test2 test2;
 
     @Id
     @Column(name = "id" )
@@ -29,5 +30,14 @@ public class Test1 {
 
     public void setStr1(String str1) {
         this.str1 = str1;
+    }
+
+    @OneToOne(mappedBy = "test1")
+    public Test2 getTest2() {
+        return test2;
+    }
+
+    public void setTest2(Test2 test2) {
+        this.test2 = test2;
     }
 }

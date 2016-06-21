@@ -45,9 +45,12 @@
 <%--json获得bean信息--%>
 <script src="${pageContext.request.contextPath}/js/jsonGetDetail.js"></script>
 <%--公共js--%>
-<script src="${pageContext.request.contextPath}/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/dialog.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        //手术室选择框
+        var $input_room=$('#input_room').attr("disabled",false);
+
         //添加助手按钮
         var add_assist = $('#add_assist');
         //添加护士按钮
@@ -167,7 +170,7 @@
                 var $this = $(this);
                 nurseArr.push($this.attr("nid"));
             });
-
+            //ajax发送保存安排请求
             $.ajax({
                 url: "/surgery/arrange",
                 type: "POST",
@@ -189,9 +192,30 @@
                     //回调函数
                     if (rdata.success) {
 
-                    }else{
+                    } else {
 
                     }
+                    showDialog(rdata.msg);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest + textStatus + errorThrown);
+                }
+            });
+        });
+        //取消安排按钮
+        var $btn_cancel = $('#btn_cancel');
+        $btn_cancel.click(function () {
+            //ajax发送取消安排申请
+            $.ajax({
+                url: "/surgery/cancelarrange",
+                type: "POST",
+                datatype: "json",
+                timeout: 3000,
+                data: {
+                    sid:${requestScope.sid}
+                },
+                success: function (rdata, textStatus) {
+                    //var data = $.parseJSON(rdata);
                     showDialog(rdata.msg);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {

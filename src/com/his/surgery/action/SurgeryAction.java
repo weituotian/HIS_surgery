@@ -44,13 +44,6 @@ public class SurgeryAction extends ActionSupport {
     private String msg;
     private boolean success;
 
-    //分页请求
-    private int page;
-    private int size;
-
-    //返回的分页，装有list
-    private Page<Surgery> mypage;
-
     /**
      * 提交手术申请【json】
      *
@@ -134,18 +127,6 @@ public class SurgeryAction extends ActionSupport {
         return SUCCESS;
     }
 
-    /**
-     * 分页显示手术申请list
-     *
-     * @return
-     */
-    public String list() {
-        //
-        PageRequest pageRequest = new PageRequest(page, size);
-        mypage = surgeryService.getPageList(pageRequest);
-        return SUCCESS;
-    }
-
     public Surgery getSurgery() {
         return surgery;
     }
@@ -208,30 +189,6 @@ public class SurgeryAction extends ActionSupport {
 
     public void setSuccess(boolean success) {
         this.success = success;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public Page<Surgery> getMypage() {
-        return mypage;
-    }
-
-    public void setMypage(Page<Surgery> mypage) {
-        this.mypage = mypage;
     }
 
     public int getSid() {

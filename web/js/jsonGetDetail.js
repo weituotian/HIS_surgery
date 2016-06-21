@@ -16,11 +16,14 @@ function isNum(value) {
  * @returns {number} 错误代码
  * 1为空，2为相同，3为不是整数
  */
-function basecheck($ele){
+function basecheck($ele) {
+    //去掉首尾空格
+    $ele.val($ele.val().trim());
+
     //旧的值
     var oldvalue = $ele.attr("oldId");
 
-    //这次输入的医生ID
+    //这次输入的值
     var value = $ele.val();
 
     //记录输入的id
@@ -51,7 +54,7 @@ function basecheck($ele){
 function getDoctorDetail($ele, callback) {
 
     var checkcode = basecheck($ele);
-    if (checkcode!=0) {
+    if (checkcode != 0) {
         //基本检查不通过就直接返回
         return checkcode;
     }
@@ -84,9 +87,9 @@ function getDoctorDetail($ele, callback) {
     return 0;
 }
 
-function getNurseDetail($ele,callback){
+function getNurseDetail($ele, callback) {
     var checkcode = basecheck($ele);
-    if (checkcode!=0) {
+    if (checkcode != 0) {
         //基本检查不通过就直接返回
         return checkcode;
     }
@@ -117,4 +120,43 @@ function getNurseDetail($ele,callback){
     });
 
     return 0;
+}
+
+/**
+ * 获取病人基本信息
+ * @param $ele input元素
+ * @param callback
+ */
+function getPatientDetail($ele, callback) {
+    var checkcode = basecheck($ele);
+    if (checkcode != 0) {
+        //基本检查不通过就直接返回
+        return checkcode;
+    }
+
+    //元素标记输入成功
+    $ele.attr("success", true);
+
+    var value = $ele.val();
+
+    console.log("输入病人编号：" + value);
+
+    //标志输入成功
+    $ele.attr("success", true);
+    $.ajax({
+        url: "/patient/getdetail",
+        type: "POST",
+        datatype: "json",
+        timeout: 3000,
+        data: {
+            id: value
+        },
+        success: function (rdata, textStatus) {
+            //var data = $.parseJSON(rdata);
+            callback && callback(rdata);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest + textStatus + errorThrown);
+        }
+    });
 }

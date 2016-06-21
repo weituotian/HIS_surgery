@@ -34,342 +34,30 @@
         </s:if>
     </div>
     <%--病人信息--%>
-    <table id="patient_table" class="table">
-        <caption>输入病人编号获得信息:</caption>
-        <tbody>
-        <tr>
-            <th rowspan="3">病人信息</th>
-            <th>编号：</th>
-            <td>
-                <label>
-                    <input id="t_id" type="text" placeholder="输入病人编号获得信息:">
-                </label>
-            </td>
-            <th>姓名：</th>
-            <td>
-                <label>
-                    <input id="t_name" type="text" readonly="readonly">
-                </label>
-            </td>
-            <th>年龄：</th>
-            <td>
-                <label>
-                    <input id="t_age" type="text" readonly="readonly">
-                </label>
-            </td>
-            <th>性别：</th>
-            <td>
-                <label>
-                    <input id="t_sex" type="text" readonly="readonly">
-                </label>
-            </td>
-        </tr>
-        <tr>
-            <th>电话:</th>
-            <td>
-                <label>
-                    <input id="t_phone" type="text" readonly="readonly">
-                </label>
-            </td>
-            <th>电子邮箱：</th>
-            <td>
-                <label>
-                    <input id="t_email" type="text" readonly="readonly">
-                </label>
-            </td>
-            <th>生日：</th>
-            <td>
-                <label>
-                    <input id="t_birthday" type="text" readonly="readonly">
-                </label>
-            </td>
-        </tr>
-        <tr>
-            <th>地址：</th>
-            <td colspan="7">
-                <label style="width: 100%">
-                    <input id="t_address" type="text" style="width: 95%" readonly="readonly">
-                </label>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <%@include file="common/patient.jsp" %>
     <%--手术讯息--%>
-    <table id="surgery_table" class="table">
-        <caption>手术讯息</caption>
-        <tbody>
-        <tr>
-            <th>手术名称：</th>
-            <td><label for="sur_name"></label><input type="text" id="sur_name" class="common"></td>
-            <th>疾病诊断：</th>
-            <td><label for="sur_disease"></label><input type="text" id="sur_disease" class="common"></td>
-        </tr>
-        <tr>
-            <th>医生：</th>
-            <td>
-                <input type="text" id="sur_doctor" class="common" placeholder="输入医生编号">
-                <label for="sur_doctor" id="doctor_name"></label>
-            </td>
-            <th>申请时间：</th>
-            <td style="width: 50%">
-                <div class="input-group date form_time col-md-5" data-date="" style="width: auto"
-                     data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
-                    <input id="sur_time" class="form-control" size="16" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <jsp:include page="common/surgery1.jsp"/>
     <div class="row">
         <button type="button" class="btn btn-primary" id="sur_submit">提交</button>
         <button type="button" class="btn btn-primary" id="sur_save">保存修改</button>
     </div>
 </div>
+
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    消息
-                </h4>
-            </div>
-            <div class="modal-body">
-                按下 ESC 按钮退出。
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">确定
-                </button>
-                <%--<button type="button" class="btn btn-primary">--%>
-                <%--提交更改--%>
-                <%--</button>--%>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
+<jsp:include page="common/dialog.jsp"/>
 
 <script src="${pageContext.request.contextPath}/js/jquery-1.9.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<%--对话框--%>
+<script src="${pageContext.request.contextPath}/js/dialog.js"></script>
+<%--公共函数--%>
+<script src="${pageContext.request.contextPath}/js/comment.js"></script>
+<script src="${pageContext.request.contextPath}/js/jsonGetDetail.js"></script>
 <script type="text/javascript">
-    /**
-     * 时间类型的格式化函数
-     */
-    Date.prototype.format = function (fmt) { //author: meizz
-        var o = {
-            "M+": this.getMonth() + 1,                 //月份
-            "d+": this.getDate(),                    //日
-            "H+": this.getHours(),                   //小时
-            "m+": this.getMinutes(),                 //分
-            "s+": this.getSeconds(),                 //秒
-            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-            "S": this.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    };
-
-    /**
-     * 全局函数，显示对话框
-     * @param text
-     */
-    function showDialog(text) {
-        var mydialog = $('#myModal');
-        mydialog.find('div.modal-body').text(text);
-        mydialog.modal('show');
-    }
-
-    /**
-     * 全局函数，判断是否函数,是返回true
-     */
-    function isNum(value) {
-        //正则表达式判断是否整数
-        return (!(/^(\+|-)?\d+$/.test(value)) || value < 0);
-    }
 
     $(document).ready(function () {
-        //基本的
-
-        /**
-         * 获取病人基本信息
-         * @param $ele input元素
-         * @param callback
-         */
-        function getPatientDetail($ele, callback) {
-
-            //上一次输入的病人id
-            var oldvalue = $ele.attr("oldId");
-            //这次输入的病人ID
-            var value = $ele.val();
-            if (value == "") {
-                //为空直接跳过
-                return;
-            }
-            if (oldvalue == value) {
-                //两次输入相同，跳过
-                return;
-            }
-
-            //记录输入的id
-            $ele.attr("oldId", value);
-            console.log("输入病人编号！");
-
-            //正则表达式判断是否整数
-            if (isNum(value)) {
-                showDialog("数量必须是正整数！");
-                return;
-            }
-
-            //标志输入成功
-            $ele.attr("success", true);
-            $.ajax({
-                url: "/patient/getdetail",
-                type: "POST",
-                datatype: "json",
-                timeout: 3000,
-                data: {
-                    id: value
-                },
-                success: function (rdata, textStatus) {
-                    //var data = $.parseJSON(rdata);
-                    callback && callback(rdata);
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(XMLHttpRequest + textStatus + errorThrown);
-                }
-            });
-        }
-
-        /**
-         * 获取医生基本信息
-         * @param $ele input元素
-         * @param callback
-         */
-        function getDoctorDetail($ele, callback) {
-
-            var oldvalue = $ele.attr("oldId");
-            //这次输入的医生ID
-            var value = $ele.val();
-            if (value == "") {
-                //为空直接跳过
-                return;
-            }
-            if (oldvalue == value) {
-                //两次输入相同，跳过
-                return;
-            }
-
-            //记录输入的id
-            $ele.attr("oldId", value);
-            console.log("输入医生编号：" + value);
-
-            //正则表达式判断是否整数
-            if (isNum(value)) {
-                showDialog("医生工号必须是正整数！");
-                return;
-            }
-
-            //标志输入成功
-            $ele.attr("success", true);
-            $.ajax({
-                url: "/doctor/getdetail",
-                type: "POST",
-                datatype: "json",
-                timeout: 3000,
-                data: {
-                    id: value
-                },
-                success: function (rdata, textStatus) {
-                    //var data = $.parseJSON(rdata);
-                    callback && callback(rdata);
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(XMLHttpRequest + textStatus + errorThrown);
-                }
-            });
-        }
-
-        var $t_name = $('#t_name');
-        var $t_birthday = $('#t_birthday');
-        var $t_age = $('#t_age');
-        var $t_email = $('#t_email');
-        var $t_phone = $('#t_phone');
-        var $t_sex = $('#t_sex');
-        var $t_address = $('#t_address');
-        var $t_id = $('#t_id');
-        //标志是否输入成功，默认为false
-        $t_id.attr("success", false);
-        $t_id.blur(function () {
-            getPatientDetail($t_id, function (data) {
-                //回调函数
-                showDialog(data.msg);
-                if (!data.success) {
-                    //失败
-                    resetData();
-                } else {
-                    //成功
-                    setData(data.patient);
-                }
-            });
-        });
-
-        var $sur_doctor = $('#sur_doctor');
-        var $doctor_name = $('#doctor_name');
-        var $sur_disease = $('#sur_disease');
-        var $sur_name = $('#sur_name');
-        var $sur_time = $('#sur_time');
-        $sur_doctor.attr("success", false);
-        $sur_doctor.blur(function () {
-            getDoctorDetail($sur_doctor, function (rdata) {
-                //回调
-                showDialog(rdata.msg);
-                if (!rdata.success) {
-                    //失败
-                    $doctor_name.text(rdata.msg);
-                } else {
-                    //成功
-                    $doctor_name.text(rdata.doctor.name);
-                }
-            });
-        });
-
-        //日期选择
-        var $time = $('.form_time').datetimepicker({
-            language: "zh-CN",
-            //日期显示格式
-            format: "yyyy-mm-dd hh:ii:ss",
-            //一周从哪一天开始。0（星期日）到6（星期六）
-            weekStart: 1,
-            //底部显示一个 "Today" 按钮用以选择当前日期
-            todayBtn: true,
-            autoclose: 1,
-            todayHighlight: 1,
-            //日期时间选择器打开之后首先显示的视图
-            startView: 2,
-            forceParse: 0,
-            showMeridian: 1,
-            //最小允许选择的时间
-            startDate: new Date(),
-            //初始化日期
-            initialDate: new Date()
-        });
-        //初始化时间
-        $sur_time.val(new Date().format("yyyy-MM-dd HH:mm:ss"));
-        $time.datetimepicker('update');
 
         //设置病人信息
         function setData(pdata) {
@@ -406,6 +94,88 @@
                 $this.val("");
             });
         }
+
+
+        //病人名字
+        var $t_name = $('#t_name');
+        //病人生日
+        var $t_birthday = $('#t_birthday');
+        //病人年龄
+        var $t_age = $('#t_age');
+        //病人email
+        var $t_email = $('#t_email');
+        var $t_phone = $('#t_phone');
+        var $t_sex = $('#t_sex');
+        var $t_address = $('#t_address');
+        var $t_id = $('#t_id');
+        //标志是否输入成功，默认为false
+        $t_id.attr("success", false);
+        //病人编号输入
+        $t_id.blur(function () {
+            var code = getPatientDetail($t_id, function (data) {
+                //回调函数
+                showDialog(data.msg);
+                if (!data.success) {
+                    //失败
+                    resetData();
+                } else {
+                    //成功
+                    setData(data.patient);
+                }
+            });
+            if (code == 3) {
+                showDialog("病人编号必须是正整数！")
+            }
+        });
+
+        //医生ｉｄ
+        var $sur_doctor = $('#sur_doctor');
+        //医生名字
+        var $doctor_name = $('#doctor_name');
+        //手术疾病
+        var $sur_disease = $('#sur_disease');
+        //手术名称
+        var $sur_name = $('#sur_name');
+        //手术时间
+        var $sur_time = $('#sur_time');
+        //一开始标记输入成功为false
+        $sur_doctor.attr("success", false);
+        //医生id输入
+        $sur_doctor.blur(function () {
+            getDoctorDetail($sur_doctor, function (rdata) {
+                //回调
+                showDialog(rdata.msg);
+                if (!rdata.success) {
+                    //失败
+                    $doctor_name.text(rdata.msg);
+                } else {
+                    //成功
+                    $doctor_name.text(rdata.doctor.name);
+                }
+            });
+        });
+
+        //日期选择
+        var $time = $('.form_time').datetimepicker({
+            language: "zh-CN",
+            //日期显示格式
+            format: "yyyy-mm-dd hh:ii:ss",
+            //一周从哪一天开始。0（星期日）到6（星期六）
+            weekStart: 1,
+            //底部显示一个 "Today" 按钮用以选择当前日期
+            todayBtn: true,
+            autoclose: 1,
+            todayHighlight: 1,
+            //日期时间选择器打开之后首先显示的视图
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            //最小允许选择的时间
+            startDate: new Date(),
+            //初始化日期
+            initialDate: new Date()
+        });
+
 
         //提交手术申请
         var $btn_submit = $('#sur_submit');
@@ -449,7 +219,7 @@
         });
 
         //保存手术申请
-        var sid ='${surgery.code}';
+        var sid = '${surgery.code}';
         var $btn_save = $('#sur_save');
         $btn_save.click(function () {
             console.log("按钮保存申请");
@@ -492,66 +262,92 @@
         });
 
         //本页面的操作类型，是新建还是修改
-        var operateType = '${type}';
+        var operateType = '${requestScope.type}';
 
-        function initData(){
-            //初始化表格各项数据
+        function initData() {
+            //初始化表格各项数据,使用js
             //病人信息
-            $t_id.val("${surgery.patient.id}");
-            getPatientDetail($t_id, function (rdata) {
-                if (!rdata.success) {
-                    //失败
-                    resetData();
-                } else {
-                    //成功
-                    setData(rdata.patient);
-                }
-            });
+            //$t_id.val("${surgery.patient.id}");
+            //$t_id.attr("readonly", false);
+//            getPatientDetail($t_id, function (rdata) {
+//                if (!rdata.success) {
+//                    //失败
+//                    resetData();
+//                } else {
+//                    //成功
+//                    setData(rdata.patient);
+//                }
+//            });
+
             //医生信息
-            $sur_doctor.val("${surgery.doctor.id}");
-            getDoctorDetail($sur_doctor, function (rdata) {
-                //回调
-                if (!rdata.success) {
-                    //失败
-                    $doctor_name.text(rdata.msg);
-                } else {
-                    //成功
-                    $doctor_name.text(rdata.doctor.name);
-                }
-            });
+            //$sur_doctor.val("${surgery.doctor.id}");
+            //$sur_doctor.attr("readonly", false);
+//            getDoctorDetail($sur_doctor, function (rdata) {
+//                //回调
+//                if (!rdata.success) {
+//                    //失败
+//                    $doctor_name.text(rdata.msg);
+//                } else {
+//                    //成功
+//                    $doctor_name.text(rdata.doctor.name);
+//                }
+//            });
+
             //手术信息
-            $sur_disease.val("${surgery.disease}");
-            $sur_name.val("${surgery.name}");
+            <%--$sur_disease.val("${surgery.disease}");--%>
+            <%--$sur_name.val("${surgery.name}");--%>
+
             //初始化时间
-            $sur_time.val(new Date("${surgery.applyTime}").format("yyyy-MM-dd HH:mm:ss"));
+            <%--$sur_time.val(new Date("${surgery.applyTime}").format("yyyy-MM-dd HH:mm:ss"));--%>
+            <%--$time.datetimepicker('update');--%>
+        }
+
+        if (operateType == "update") {
+            //如果是修改手术申请的状况
+            //initData();
+
+            $t_id.attr("readonly", false);
+            $sur_doctor.attr("readonly", false);
+            $sur_name.attr("readonly", false);
+            $sur_disease.attr("readonly", false);
+
+            //id输入框设置验证成功
+            $t_id.attr("success", true);
+            $t_id.attr("oldId", $t_id.val());
+            $sur_doctor.attr("success", true);
+            //$sur_doctor.attr("oldId", $sur_doctor.val());
+
+            //隐藏提交按钮
+            $btn_submit.hide();
+        } else if (operateType == "view") {
+            //查看的情况
+            //initData();
+            //使只读
+//            $t_id.attr("readonly","readonly");
+//            $sur_doctor.attr("readonly","readonly");
+//            $sur_name.attr("readonly","readonly");
+//            $sur_disease.attr("readonly","readonly");
+            //取消时间选择功能
+            $time.datetimepicker("remove");
+            //隐藏两个按钮
+            $btn_save.hide();
+            $btn_submit.hide();
+        } else if (operateType == "add") {
+            //新建的情况下
+            //使某些输入框能够接受输入
+
+            $t_id.attr("readonly", false);
+            $sur_doctor.attr("readonly", false);
+            $sur_name.attr("readonly", false);
+            $sur_disease.attr("readonly", false);
+
+            //隐藏保存按钮
+            $btn_save.hide();
+
+            //初始化时间
+            $sur_time.val(new Date().format("yyyy-MM-dd HH:mm:ss"));
             $time.datetimepicker('update');
         }
-
-        //如果是保存手术申请的状况
-        if (operateType == "update") {
-            initData();
-            $btn_submit.hide();
-        }else if (operateType=="view"){
-            initData();
-            //使只读
-            $t_id.attr("readonly","readonly");
-            $sur_doctor.attr("readonly","readonly");
-            $sur_name.attr("readonly","readonly");
-            $sur_disease.attr("readonly","readonly");
-
-            $time.datetimepicker("remove");
-
-            $btn_save.hide();
-            $btn_submit.hide();
-        }else if(operateType=="add"){
-            //新建
-            $btn_save.hide();
-        }
-    });
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var $sur_disease = $('#sur_disease')
     });
 </script>
 </body>

@@ -19,7 +19,7 @@
         <td id="td_assist">
             <s:iterator value="surgery.assists" id="each">
                 <%--did是自定义的记录医生id--%>
-                <div did="<s:property value="#each.id"/> ">
+                <div did="<s:property value="#each.id"/>">
                 <span>
                     <s:property value="#each.name"/>
                 </span>
@@ -64,7 +64,7 @@
     <tr>
         <th>科室</th>
         <td>
-            <select id="input_room" class="form-control">
+            <select id="input_room" class="form-control" style="width: 40%" disabled>
                 <s:iterator value="roomlist" id="each">
                     <option value="<s:property value="#each.num"/>"
                             <s:if test="#each.num==surgery.room.num">selected</s:if>

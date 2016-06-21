@@ -8,8 +8,13 @@ import javax.persistence.*;
 @Entity
 public class Anaesthesia {
     private int code;
+    //麻醉方法
+    private String method;
+    //会诊意见
     private String consultation;
     private Surgery sur;
+    //麻醉医生
+    private Doctor doctor;
 
     @Id
     @Column(name = "code", nullable = false)
@@ -29,6 +34,16 @@ public class Anaesthesia {
 
     public void setConsultation(String consultation) {
         this.consultation = consultation;
+    }
+
+    @Basic
+    @Column(name = "method",nullable = true,length = 20)
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     @Override
@@ -59,5 +74,15 @@ public class Anaesthesia {
 
     public void setSur(Surgery sur) {
         this.sur = sur;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "doctor_id", referencedColumnName = "id")
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }

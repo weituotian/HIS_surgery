@@ -1,12 +1,8 @@
 package com.his.surgery.service;
 
-import com.his.surgery.entity.Surgery;
-
 /**
- * Created by ange on 2016/6/17.
+ *
  */
 public interface ISurgeryLogService {
-    void test();
-
-    Surgery show();
+    void save(int sid, String remark,String firstConsult,String endConsult,String process);
 }

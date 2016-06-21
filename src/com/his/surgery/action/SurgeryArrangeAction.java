@@ -52,6 +52,23 @@ public class SurgeryArrangeAction extends ActionSupport {
         return SUCCESS;
     }
 
+    /**
+     * 取消安排
+     * @return
+     */
+    public String cancelArrange(){
+        try {
+            surgeryService.cancelArrange(sid);
+            success = true;
+            msg = "取消安排成功！该手术安排失效，转到手术申请";
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+            msg = "取消安排错误！数据有错误！";
+        }
+        return SUCCESS;
+    }
+
     public int getSid() {
         return sid;
     }

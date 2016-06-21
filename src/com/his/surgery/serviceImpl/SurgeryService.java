@@ -45,10 +45,15 @@ public class SurgeryService implements ISurgeryService {
 
     @Override
     public Surgery eagerFindById(Integer id) {
-        Surgery surgery= surgeryDao.loadById(id);
+        Surgery surgery = surgeryDao.loadById(id);
         //解决延迟加载问题
-        surgery.getAssists().size();
-        surgery.getNurses().size();
+        try {
+            surgery.getAssists().size();
+            surgery.getNurses().size();
+        } catch (Exception e) {
+            e.printStackTrace();
+            surgery = null;
+        }
         return surgery;
     }
 
@@ -61,8 +66,8 @@ public class SurgeryService implements ISurgeryService {
      * 获得申请中的手术list
      */
     @Override
-    public Page<Surgery> getPageList(PageRequest pageRequest) {
-        List<Surgery> list = surgeryDao.findListByHQL("from Surgery where state=?", 0);
+    public Page<Surgery> getPageList(PageRequest pageRequest, int state) {
+        List<Surgery> list = surgeryDao.findListByHQL("from Surgery where state=?", state);
         List<Surgery> newlist = new ArrayList<Surgery>();
 
         Page<Surgery> mypage = new Page<Surgery>(pageRequest);
@@ -72,7 +77,15 @@ public class SurgeryService implements ISurgeryService {
             if (i >= list.size()) {
                 break;
             }
-            newlist.add(list.get(i));
+            Surgery each = list.get(i);
+            //解决懒加载问题
+            each.getDoctor().getName();
+            if (state > 0) {
+                //解决懒加载问题
+                each.getAssists().size();
+                each.getNurses().size();
+            }
+            newlist.add(each);
         }
 
         mypage.setResult(newlist);
@@ -91,8 +104,16 @@ public class SurgeryService implements ISurgeryService {
         surgeryDao.delete(surgery);
     }
 
+    /**
+     * 更新手术安排
+     *
+     * @param id         手术id
+     * @param doctor_ids 医生数组
+     * @param nurse_ids  护士数组
+     * @param room       房间号
+     */
     @Override
-    public void updateArrange(int id, int[] doctor_ids, int[] nurse_ids,int room) {
+    public void updateArrange(int id, int[] doctor_ids, int[] nurse_ids, int room) {
         Surgery surgery = surgeryDao.findById(id);
         //设置从申请状态到安排状态
         surgery.setState(1);
@@ -127,5 +148,25 @@ public class SurgeryService implements ISurgeryService {
         Operationroom operationroom = new Operationroom();
         operationroom.setNum(room);
         surgery.setRoom(operationroom);
+    }
+
+    /**
+     * 取消手术安排
+     *
+     * @param id 手术id
+     */
+    public void cancelArrange(int id) {
+        Surgery surgery = surgeryDao.findById(id);
+        //设置从安排状态到申请状态
+        surgery.setState(0);
+
+        //重新建立数组,设置医生
+        Set<Doctor> assists = new ManagedSet<Doctor>();
+        //设置护士
+        Set<Nurse> nurses = new ManagedSet<Nurse>();
+
+        surgery.setAssists(assists);
+        surgery.setNurses(nurses);
+        surgery.setRoom(null);
     }
 }

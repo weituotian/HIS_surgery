@@ -30,7 +30,7 @@ public class testAction extends ActionSupport {
    private Surgery surgery;
 
     public String test2(){
-        surgery = surgeryLogService.show();
+        //surgeryLogService.test();
         return SUCCESS;
     }
 
@@ -51,7 +51,7 @@ public class testAction extends ActionSupport {
         //Anaesthesia anaesthesia= anaesthesiaService.findById(1);
         //Surgery surgery = surgeryService.findById(1);
 
-        surgeryLogService.show();
+        //surgeryLogService.show();
         return SUCCESS;
     }
 

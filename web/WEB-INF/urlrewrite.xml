@@ -30,21 +30,40 @@
         <to>/test/status/</to>
     </outbound-rule>
 
-    <!--手术list分页-->
+    <!--手术申请list分页-->
     <rule>
         <from>/surgery/list/size_(\d+)_page_(\d+)</from>
-        <to>/surgery/list?page=$2&amp;size=$1</to>
+        <to>/surgery/list?page=$2&amp;size=$1&amp;state=0</to>
     </rule>
-    <!---->
+    <!--手术安排list分页-->
+    <rule>
+        <from>/surgery/listA/size_(\d+)_page_(\d+)</from>
+        <to>/surgery/listA?page=$2&amp;size=$1&amp;state=1</to>
+    </rule>
+    <!--手术记录list分页-->
+    <rule>
+        <from>/surgery/listL/size_(\d+)_page_(\d+)</from>
+        <to>/surgery/listL?page=$2&amp;size=$1&amp;state=2</to>
+    </rule>
+
+
+    <!--手术修改，查看-->
     <rule>
         <from>/surgery/page_([A-Za-z]+\w*)/(\d+)</from>
         <to>/surgery/page?type=$1&amp;sid=$2</to>
     </rule>
-
+    <!--手术申请添加-->
     <rule>
         <from>/surgery/page_add</from>
         <to>/surgery/page?type=add</to>
     </rule>
+
+    <!--麻醉申请新建，修改-->
+    <rule>
+        <from>/anaesthsia/page_([A-Za-z]+\w*)/(\d+)</from>
+        <to>/anaesthsia/page?type=$1&amp;sid=$2</to>
+    </rule>
+
     <!--
 
     INSTALLATION

@@ -17,11 +17,13 @@
 <body>
 
 <div class="container">
+    <jsp:include page="common/nav.jsp"/>
     <div class="row">
-        <a class="btn btn-primary" href="/surgery/page_add" target="_blank">新建手术申请</a>
+        <h3 class="pull-left">手术申请</h3>
+        <a class="btn btn-primary pull-right" href="/surgery/page_add" target="_blank"><span class="glyphicon glyphicon-plus"></span>新建手术申请</a>
     </div>
     <div class="row">
-        <table class="table">
+        <table class="table table-striped table-hover">
             <caption>所有正在申请的手术:</caption>
             <thead>
             <tr>
@@ -65,7 +67,7 @@
                         <a class="btn btn-primary dispose" sid="<s:property value="#each.code"/>">
                             废弃
                         </a>
-                        <a class="btn btn-primary " href="/surgery/page_arrange/<s:property value="#each.code"/>">
+                        <a class="btn btn-primary " href="/surgery/page_arrange/<s:property value="#each.code"/>" target="_blank">
                             安排
                         </a>
                     </td>
@@ -82,30 +84,31 @@
 </div>
 
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    消息
-                </h4>
-            </div>
-            <div class="modal-body">
-                按下 ESC 按钮退出。
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal_sure">确定
-                </button>
-                <%--<button type="button" class="btn btn-primary">--%>
-                <%--提交更改--%>
+<jsp:include page="common/dialog.jsp"/>
+<%--<div class="modal fade" id="myModal" tabindex="-1" role="dialog"--%>
+     <%--aria-labelledby="myModalLabel" aria-hidden="true">--%>
+    <%--<div class="modal-dialog">--%>
+        <%--<div class="modal-content">--%>
+            <%--<div class="modal-header">--%>
+                <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×--%>
                 <%--</button>--%>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
+                <%--<h4 class="modal-title" id="myModalLabel">--%>
+                    <%--消息--%>
+                <%--</h4>--%>
+            <%--</div>--%>
+            <%--<div class="modal-body">--%>
+                <%--按下 ESC 按钮退出。--%>
+            <%--</div>--%>
+            <%--<div class="modal-footer">--%>
+                <%--<button type="button" class="btn btn-primary" data-dismiss="modal" id="modal_sure">确定--%>
+                <%--</button>--%>
+                <%--&lt;%&ndash;<button type="button" class="btn btn-primary">&ndash;%&gt;--%>
+                <%--&lt;%&ndash;提交更改&ndash;%&gt;--%>
+                <%--&lt;%&ndash;</button>&ndash;%&gt;--%>
+            <%--</div>--%>
+        <%--</div><!-- /.modal-content -->--%>
+    <%--</div><!-- /.modal-dialog -->--%>
+<%--</div>--%>
 
 
 <script src="${pageContext.request.contextPath}/js/jquery-1.9.1.min.js"></script>
@@ -146,6 +149,7 @@
         //创建分页条
         $pagination.paging(setting);
 
+        //废弃按钮被点击
         $('a.btn.dispose').each(function () {
             var $this = $(this);
             $this.click(function () {

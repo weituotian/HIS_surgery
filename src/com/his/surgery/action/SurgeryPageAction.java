@@ -1,5 +1,7 @@
 package com.his.surgery.action;
 
+import com.his.surgery.domain.Page;
+import com.his.surgery.domain.PageRequest;
 import com.his.surgery.entity.Operationroom;
 import com.his.surgery.entity.Surgery;
 import com.his.surgery.service.IRoomService;
@@ -40,32 +42,93 @@ public class SurgeryPageAction extends ActionSupport {
     //请求的页面类型，新建还是修改还是查看,安排
     private String type;
 
+    //分页请求
+    private int page;
+    private int size;
+
+    //返回的分页，装有list
+    private Page<Surgery> mypage;
+
+    //指定手术状态
+    private int state;
+
     /**
      * 页面分发
      *
      * @return
      */
     public String dispatch() {
+
+        //如果没有指定type和type是add，直接跳到page
+        if (type == null || type.equals("add")) {
+            return "page";
+        }
+
+        //默认返回add
+        String flag = "add";
+
         switch (type) {
-            //手术申请
-            case "add":
-                return "page";
-            //手术申请修改
-            case "update":
+
+            case "update": //手术申请更新
                 surgery = surgeryService.findById(sid);
-                return "page";
-            //手术申请预览
-            case "view":
+                flag = "page";
+                break;
+
+            case "view": //手术申请预览
                 surgery = surgeryService.findById(sid);
-                return "page";
-            case "arrange":
+                flag = "page";
+                break;
+
+            case "arrange"://手术安排
                 surgery = surgeryService.eagerFindById(sid);
                 roomlist = roomService.getlist();
-                return "page2";
+                if (surgery.getState()<=1) {//做了手术记录的不能再做手术安排
+                    flag = "page2";
+                }else {
+                    flag = "errorpage";
+                }
+                break;
+
+            case "log"://手术记录
+                surgery = surgeryService.eagerFindById(sid);
+                roomlist = roomService.getlist();
+                flag = "log";
+                break;
+
             default:
-                //错误页面
-                return "errorpage";
+                //type不符合任何一个操作类型，返回错误页面
+                flag = "errorpage";
         }
+
+        //检查有没有该手术，没有就跳到错误页面
+        if (surgery == null) {
+            return "errorpage";
+        }
+
+        return flag;
+    }
+
+    /**
+     * 分页显示手术申请list
+     *
+     * @return
+     */
+    public String list() {
+        //
+        PageRequest pageRequest = new PageRequest(page, size);
+        mypage = surgeryService.getPageList(pageRequest, state);
+        return SUCCESS;
+    }
+
+    /**
+     * 分页显示手术安排list
+     *
+     * @return
+     */
+    public String listA() {
+        PageRequest pageRequest = new PageRequest(page, size);
+        mypage = surgeryService.getPageList(pageRequest, 1);
+        return SUCCESS;
     }
 
     public String getType() {
@@ -100,4 +163,35 @@ public class SurgeryPageAction extends ActionSupport {
         this.roomlist = roomlist;
     }
 
+    public Page<Surgery> getMypage() {
+        return mypage;
+    }
+
+    public void setMypage(Page<Surgery> mypage) {
+        this.mypage = mypage;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 }

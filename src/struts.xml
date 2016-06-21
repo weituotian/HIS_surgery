@@ -58,37 +58,53 @@
 
     <!--手术接口-->
     <package name="surgery" namespace="/surgery" extends="json-default">
-        <!--请求s-->
+        <!--ajax请求,添加手术申请-->
         <action name="add" class="com.his.surgery.action.SurgeryAction" method="request">
             <result type="json">
                 <param name="includeProperties">success,msg</param>
             </result>
         </action>
+        <!--ajax请求,保存手术申请-->
         <action name="save" class="com.his.surgery.action.SurgeryAction" method="save">
             <result type="json">
                 <param name="includeProperties">success,msg</param>
             </result>
         </action>
+        <!--ajax请求,废弃手术申请-->
         <action name="dispose" class="com.his.surgery.action.SurgeryAction" method="dispose">
             <result type="json">
                 <param name="includeProperties">success,msg</param>
             </result>
         </action>
+        <!--ajax请求,手术申请变手术安排-->
         <action name="arrange" class="com.his.surgery.action.SurgeryArrangeAction" method="arrange">
+            <result type="json">
+                <param name="includeProperties">success,msg</param>
+            </result>
+        </action>
+        <!--ajax请求,手术安排变手术申请-->
+        <action name="cancelarrange" class="com.his.surgery.action.SurgeryArrangeAction" method="cancelArrange">
+            <result type="json">
+                <param name="includeProperties">success,msg</param>
+            </result>
+        </action>
+        <!--ajax请求，手术记录-->
+        <action name="surgerylog" class="com.his.surgery.action.SurgeryLogAction" method="savelog">
             <result type="json">
                 <param name="includeProperties">success,msg</param>
             </result>
         </action>
         <!--页面转发-->
         <action name="page" class="com.his.surgery.action.SurgeryPageAction" method="dispatch">
-            <!--新建页面 add-->
-            <!--修改页面 modify-->
+            <!--手术申请页面 add-->
             <result name="page">/jsp/surgery_apply.jsp</result>
+            <!--手术安排页面-->
             <result name="page2">/jsp/surgery_arrange.jsp</result>
+            <result name="log">/jsp/surgery_log.jsp</result>
             <result name="errorpage">/jsp/error.jsp</result>
         </action>
         <!--显示手术申请列表-->
-        <action name="list" class="com.his.surgery.action.SurgeryAction" method="list">
+        <action name="list" class="com.his.surgery.action.SurgeryPageAction" method="list">
             <result>/jsp/surgery_apply_list.jsp</result>
             <!--返回json方式 不采用-->
             <!--<result type="json">-->
@@ -98,6 +114,21 @@
             <!--</result>-->
             <!--验证字段失败后回到这里-->
             <!--<result name="input">/jsp/error.jsp</result>-->
+        </action>
+        <!--显示手术安排列表-->
+        <action name="listA" class="com.his.surgery.action.SurgeryPageAction" method="list">
+            <result>/jsp/surgery_arrange_list.jsp</result>
+        </action>
+        <action name="listL" class="com.his.surgery.action.SurgeryPageAction" method="list">
+            <result>/jsp/surgery_log_list.jsp</result>
+        </action>
+    </package>
+    
+    <!--麻醉接口-->
+    <package name="anaesthsia" namespace="/anaesthsia" extends="json-default">
+        <action name="page" class="com.his.surgery.action.AnaesthsiaPageAction" method="dispatch">
+            <result name="pageadd">/jsp/anaesthesia_apply.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
         </action>
     </package>
 </struts>
