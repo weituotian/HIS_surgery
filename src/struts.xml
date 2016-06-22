@@ -6,6 +6,8 @@
 
 <struts>
 
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+
     <!--允许动态调用-->
     <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
     <!--开发者模式-->
@@ -61,7 +63,7 @@
         <!--ajax请求,添加手术申请-->
         <action name="add" class="com.his.surgery.action.SurgeryAction" method="request">
             <result type="json">
-                <param name="includeProperties">success,msg</param>
+                <param name="includeProperties">success,msg,surgery.*</param>
             </result>
         </action>
         <!--ajax请求,保存手术申请-->
@@ -119,6 +121,7 @@
         <action name="listA" class="com.his.surgery.action.SurgeryPageAction" method="list">
             <result>/jsp/surgery_arrange_list.jsp</result>
         </action>
+        <!--显示手术记录列表-->
         <action name="listL" class="com.his.surgery.action.SurgeryPageAction" method="list">
             <result>/jsp/surgery_log_list.jsp</result>
         </action>
@@ -126,9 +129,26 @@
     
     <!--麻醉接口-->
     <package name="anaesthsia" namespace="/anaesthsia" extends="json-default">
+        <!--处理各种业务-->
+        <action name="do*" class="com.his.surgery.action.AnaesthsiaAction" method="{1}">
+            <result type="json">
+                <param name="includeProperties">success,msg</param>
+            </result>
+        </action>
+        <!--页面转发-->
         <action name="page" class="com.his.surgery.action.AnaesthsiaPageAction" method="dispatch">
             <result name="pageadd">/jsp/anaesthesia_apply.jsp</result>
-            <result name="error">/jsp/error.jsp</result>
+            <result name="pagelog">/jsp/anaesthsia_log.jsp</result>
+            <result name="pageview">/jsp/anaesthsia_view.jsp</result>
+            <result name="errorpage">/jsp/error.jsp</result>
+        </action>
+        <!--显示麻醉申请列表-->
+        <action name="listA" class="com.his.surgery.action.AnaesthsiaPageAction" method="list">
+            <result>/jsp/anaesthsia_apply_list.jsp</result>
+        </action>
+        <!--显示麻醉记录列表-->
+        <action name="listL" class="com.his.surgery.action.AnaesthsiaPageAction" method="list">
+            <result>/jsp/anaesthsia_log_list.jsp</result>
         </action>
     </package>
 </struts>

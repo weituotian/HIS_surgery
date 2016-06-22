@@ -63,7 +63,16 @@
         <from>/anaesthsia/page_([A-Za-z]+\w*)/(\d+)</from>
         <to>/anaesthsia/page?type=$1&amp;sid=$2</to>
     </rule>
-
+    <!--麻醉申请list分页-->
+    <rule>
+        <from>/anaesthsia/listA/size_(\d+)_page_(\d+)</from>
+        <to>/anaesthsia/listA?page=$2&amp;size=$1&amp;state=0</to>
+    </rule>
+    <!--麻醉记录list分页-->
+    <rule>
+        <from>/anaesthsia/listL/size_(\d+)_page_(\d+)</from>
+        <to>/anaesthsia/listL?page=$2&amp;size=$1&amp;state=1</to>
+    </rule>
     <!--
 
     INSTALLATION

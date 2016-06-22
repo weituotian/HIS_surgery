@@ -26,6 +26,7 @@ public class Surgery {
     private SurgeryLog log;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code", nullable = false)
     public int getCode() {
         return code;

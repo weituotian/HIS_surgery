@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-06-20 19:48:42
+-- Generation Time: 2016-06-22 18:36:06
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -34,17 +34,25 @@ CREATE TABLE IF NOT EXISTS `anaesthesia` (
   `sur_code` int(11) NOT NULL COMMENT '手术_手术号',
   `doctor_id` int(11) DEFAULT NULL COMMENT '工号',
   `consultation` varchar(60) DEFAULT NULL COMMENT '会诊意见',
+  `method` varchar(20) DEFAULT NULL,
+  `log` varchar(255) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`code`),
-  KEY `FK_actor` (`doctor_id`),
-  KEY `FK83j6qishc12s3ext60r2yelfi` (`sur_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='麻醉' AUTO_INCREMENT=2 ;
+  KEY `FK83j6qishc12s3ext60r2yelfi` (`sur_code`),
+  KEY `FK83p8ckc5eeleudqbei9wjpic9` (`doctor_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='麻醉' AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `anaesthesia`
 --
 
-INSERT INTO `anaesthesia` (`code`, `sur_code`, `doctor_id`, `consultation`) VALUES
-(1, 4, NULL, 'asdfagdfhdfggggggggggggggggggggggggggggggggggg');
+INSERT INTO `anaesthesia` (`code`, `sur_code`, `doctor_id`, `consultation`, `method`, `log`, `remark`, `state`) VALUES
+(2, 2, 1, 'asdasdasdasdd', 'asdasddd', '这是一个不错的麻醉记录2', '这真是一个不错的麻醉记录啊', 1),
+(5, 4, 1, 'asdfagdfhdfggggggggggggggggggggggggggggggggggg asdfffasfg', 'asdasddf', 'Anesthesia record: Anesthesia record Anesthesia record: Anesthesia record', 'Anesthesia record: Anesthesia record Anesthesia record: Anesthesia record', 1),
+(7, 5, 4, '迪迦打击一定可以麻醉', '迪迦打击', '迪迦打击一定可以麻醉迪迦打击一定可以麻醉', '迪迦打击一定可以麻醉', 1),
+(8, 8, 2, '周董周董周董周董', '周董周董', NULL, NULL, 0),
+(9, 18, 4, '死死死死死死死', '算是', '死了', '死死死死死死死死', 1);
 
 -- --------------------------------------------------------
 
@@ -189,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `surgery` (
   KEY `FK_having_surgery` (`patient_id`),
   KEY `FKo2m4u6e35a5san80j6e13ft17` (`doctor_id`),
   KEY `FK_have_room` (`num`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='手术' AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='手术' AUTO_INCREMENT=19 ;
 
 --
 -- 转存表中的数据 `surgery`
@@ -197,7 +205,18 @@ CREATE TABLE IF NOT EXISTS `surgery` (
 
 INSERT INTO `surgery` (`code`, `patient_id`, `num`, `doctor_id`, `name`, `disease`, `apply_time`, `state`, `description`, `notation`) VALUES
 (2, 1, 2, 3, '手术大法', '撒', '2016-06-30 08:14:32', 1, '这是', NULL),
-(4, 1, 2, 1, '这是一个手术', '中而不', '2016-06-19 12:09:40', 0, NULL, NULL);
+(4, 1, 2, 1, '这是一个手术', '中而不', '2016-06-19 12:09:40', 2, NULL, NULL),
+(5, 1, 4, 2, '超级手术', '疾病1', '2016-06-22 01:00:31', 1, NULL, NULL),
+(8, 1, 1, 2, ' 手术讯息 手术名称：', ' 手术讯息 手术名称：', '2016-06-22 20:02:35', 1, NULL, NULL),
+(9, 1, NULL, 2, '广东省中山市', '广东省中山市', '2016-06-22 21:25:47', 0, NULL, NULL),
+(10, 1, NULL, 2, '名称：名称：', '名称：名称：名称：', '2016-06-22 21:31:20', 0, NULL, NULL),
+(11, 1, NULL, 4, '2222', '3333', '2016-06-22 21:31:48', 0, NULL, NULL),
+(12, 1, NULL, 2, '222233', '3333455', '2016-06-22 21:32:18', 0, NULL, NULL),
+(13, 1, NULL, 3, '323453245', '123124245', '2016-06-22 21:33:50', 0, NULL, NULL),
+(14, 1, NULL, 3, '323453245', '123124245', '2016-06-22 21:33:50', 0, NULL, NULL),
+(15, 1, NULL, 3, '323453245', '123124245', '2016-06-22 21:33:50', 0, NULL, NULL),
+(16, 1, NULL, 4, '234123', '1354567567', '2016-06-26 13:00:30', 0, NULL, NULL),
+(18, 1, 1, 1, '搜索', '嗖嗖嗖', '2016-06-23 00:21:45', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -219,9 +238,12 @@ CREATE TABLE IF NOT EXISTS `surgery_assistants` (
 
 INSERT INTO `surgery_assistants` (`doctor_id`, `code`) VALUES
 (1, 2),
-(2, 2),
-(1, 4),
-(3, 4);
+(4, 2),
+(1, 5),
+(2, 5),
+(1, 8),
+(1, 18),
+(2, 18);
 
 -- --------------------------------------------------------
 
@@ -234,10 +256,18 @@ CREATE TABLE IF NOT EXISTS `surgery_log` (
   `code` int(11) NOT NULL COMMENT '手术号',
   `first_diagnosis` varchar(20) DEFAULT NULL COMMENT '术前诊断',
   `end_diagnosis` varchar(20) DEFAULT NULL COMMENT '术后诊断',
-  `process` varchar(400) DEFAULT NULL COMMENT '手术过程',
+  `process` varchar(1024) DEFAULT NULL COMMENT '手术过程',
   `log` varchar(200) NOT NULL,
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='手术记录';
+
+--
+-- 转存表中的数据 `surgery_log`
+--
+
+INSERT INTO `surgery_log` (`code`, `first_diagnosis`, `end_diagnosis`, `process`, `log`) VALUES
+(4, '呵呵呵呵', '哈哈哈', '嗷嗷嗷 ', '多对多'),
+(18, '轻轻巧巧', '死死死死死死死', ' 笑嘻嘻笑嘻嘻 死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死  笑嘻嘻笑嘻嘻 死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死  笑嘻嘻笑嘻嘻 死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死  笑嘻嘻笑嘻嘻 死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死死', '烦烦烦烦烦');
 
 -- --------------------------------------------------------
 
@@ -258,11 +288,12 @@ CREATE TABLE IF NOT EXISTS `surgery_nurse` (
 --
 
 INSERT INTO `surgery_nurse` (`nurse_id`, `code`) VALUES
-(1, 2),
 (2, 2),
-(4, 2),
-(1, 4),
-(2, 4);
+(1, 5),
+(4, 5),
+(1, 8),
+(1, 18),
+(4, 18);
 
 -- --------------------------------------------------------
 
@@ -322,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `test2` (
 --
 ALTER TABLE `anaesthesia`
   ADD CONSTRAINT `FK83j6qishc12s3ext60r2yelfi` FOREIGN KEY (`sur_code`) REFERENCES `surgery` (`code`),
-  ADD CONSTRAINT `FK_actor` FOREIGN KEY (`doctor_id`) REFERENCES `anaesthetist` (`doctor_id`),
+  ADD CONSTRAINT `FK83p8ckc5eeleudqbei9wjpic9` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`),
   ADD CONSTRAINT `FK_match` FOREIGN KEY (`sur_code`) REFERENCES `surgery` (`code`);
 
 --
@@ -346,7 +377,7 @@ ALTER TABLE `surgery_assistants`
 -- 限制表 `surgery_log`
 --
 ALTER TABLE `surgery_log`
-  ADD CONSTRAINT `FK_have1` FOREIGN KEY (`code`) REFERENCES `surgery` (`code`);
+  ADD CONSTRAINT `FK_have_log` FOREIGN KEY (`code`) REFERENCES `surgery` (`code`);
 
 --
 -- 限制表 `surgery_nurse`

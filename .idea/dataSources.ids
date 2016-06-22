@@ -64,385 +64,397 @@
         <comment>会诊意见</comment>
         <data-type>varchar(60)</data-type>
       </column>
-      <index id="20" parent="2" name="FK83j6qishc12s3ext60r2yelfi">
+      <column id="20" parent="2" name="method">
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="21" parent="2" name="log">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="22" parent="2" name="remark">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="23" parent="2" name="state">
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="24" parent="2" name="FK83j6qishc12s3ext60r2yelfi">
         <columns>sur_code</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="21" parent="2" name="FK_actor">
+      <index id="25" parent="2" name="FK83p8ckc5eeleudqbei9wjpic9">
         <columns>doctor_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="22" parent="2" name="PRIMARY">
+      <key id="26" parent="2" name="PRIMARY">
         <columns>code</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="23" parent="2" name="FK83j6qishc12s3ext60r2yelfi">
+      <foreign-key id="27" parent="2" name="FK83j6qishc12s3ext60r2yelfi">
         <columns>sur_code</columns>
         <ref-key>~.surgery.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="24" parent="2" name="FK_actor">
+      <foreign-key id="28" parent="2" name="FK83p8ckc5eeleudqbei9wjpic9">
         <columns>doctor_id</columns>
-        <ref-key>~.anaesthetist.PRIMARY</ref-key>
+        <ref-key>~.doctor.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="25" parent="2" name="FK_match">
+      <foreign-key id="29" parent="2" name="FK_match">
         <columns>sur_code</columns>
         <ref-key>~.surgery.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="26" parent="3" name="code">
+      <column id="30" parent="3" name="code">
         <comment>手术号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="27" parent="3" name="patient_id">
+      <column id="31" parent="3" name="patient_id">
         <comment>病人id</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="28" parent="3" name="num">
+      <column id="32" parent="3" name="num">
         <comment>室号</comment>
         <data-type>int(11)</data-type>
       </column>
-      <column id="29" parent="3" name="doctor_id">
+      <column id="33" parent="3" name="doctor_id">
         <comment>工号</comment>
         <data-type>int(11)</data-type>
       </column>
-      <column id="30" parent="3" name="name">
+      <column id="34" parent="3" name="name">
         <comment>手术名称</comment>
         <data-type>varchar(20)</data-type>
       </column>
-      <column id="31" parent="3" name="disease">
+      <column id="35" parent="3" name="disease">
         <comment>疾病诊断</comment>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="32" parent="3" name="apply_time">
+      <column id="36" parent="3" name="apply_time">
         <comment>申请时间</comment>
         <data-type>datetime</data-type>
       </column>
-      <column id="33" parent="3" name="state">
+      <column id="37" parent="3" name="state">
         <comment>状态</comment>
         <data-type>int(11)</data-type>
       </column>
-      <column id="34" parent="3" name="description">
+      <column id="38" parent="3" name="description">
         <comment>手术要求</comment>
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="35" parent="3" name="notation">
+      <column id="39" parent="3" name="notation">
         <comment>注意事项</comment>
         <data-type>varchar(20)</data-type>
       </column>
-      <index id="36" parent="3" name="FKo2m4u6e35a5san80j6e13ft17">
+      <index id="40" parent="3" name="FKo2m4u6e35a5san80j6e13ft17">
         <columns>doctor_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="37" parent="3" name="FK_have_room">
+      <index id="41" parent="3" name="FK_have_room">
         <columns>num</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="38" parent="3" name="FK_having_surgery">
+      <index id="42" parent="3" name="FK_having_surgery">
         <columns>patient_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="39" parent="3" name="PRIMARY">
+      <key id="43" parent="3" name="PRIMARY">
         <columns>code</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="40" parent="3" name="FK_have_room">
+      <foreign-key id="44" parent="3" name="FK_have_room">
         <columns>num</columns>
         <ref-key>~.operationroom.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="41" parent="3" name="FK_having_surgery">
+      <foreign-key id="45" parent="3" name="FK_having_surgery">
         <columns>patient_id</columns>
         <ref-key>~.patient.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="42" parent="3" name="FK_macin_actor">
+      <foreign-key id="46" parent="3" name="FK_macin_actor">
         <columns>doctor_id</columns>
         <ref-key>~.doctor.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="43" parent="4" name="code">
+      <column id="47" parent="4" name="code">
         <comment>手术号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="44" parent="4" name="first_diagnosis">
+      <column id="48" parent="4" name="first_diagnosis">
         <comment>术前诊断</comment>
         <data-type>varchar(20)</data-type>
       </column>
-      <column id="45" parent="4" name="end_diagnosis">
+      <column id="49" parent="4" name="end_diagnosis">
         <comment>术后诊断</comment>
         <data-type>varchar(20)</data-type>
       </column>
-      <column id="46" parent="4" name="process">
+      <column id="50" parent="4" name="process">
         <comment>手术过程</comment>
         <data-type>varchar(400)</data-type>
       </column>
-      <column id="47" parent="4" name="log">
+      <column id="51" parent="4" name="log">
         <mandatory>1</mandatory>
         <data-type>varchar(200)</data-type>
       </column>
-      <key id="48" parent="4" name="PRIMARY">
+      <key id="52" parent="4" name="PRIMARY">
         <columns>code</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="49" parent="4" name="FK_have_log">
+      <foreign-key id="53" parent="4" name="FK_have_log">
         <columns>code</columns>
         <ref-key>~.surgery.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="50" parent="5" name="doctor_id">
+      <column id="54" parent="5" name="doctor_id">
         <comment>工号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="51" parent="5" name="doctor_name">
+      <column id="55" parent="5" name="doctor_name">
         <comment>姓名</comment>
         <data-type>varchar(8)</data-type>
       </column>
-      <key id="52" parent="5" name="PRIMARY">
+      <key id="56" parent="5" name="PRIMARY">
         <columns>doctor_id</columns>
         <primary>1</primary>
       </key>
-      <column id="53" parent="6" name="id">
+      <column id="57" parent="6" name="id">
         <comment>工号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="54" parent="6" name="name">
+      <column id="58" parent="6" name="name">
         <comment>姓名</comment>
         <mandatory>1</mandatory>
         <data-type>varchar(8)</data-type>
       </column>
-      <key id="55" parent="6" name="PRIMARY">
+      <key id="59" parent="6" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="56" parent="7" name="id">
+      <column id="60" parent="7" name="id">
         <comment>编号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="57" parent="7" name="name">
+      <column id="61" parent="7" name="name">
         <comment>名称</comment>
         <data-type>varchar(20)</data-type>
       </column>
-      <key id="58" parent="7" name="PRIMARY">
+      <key id="62" parent="7" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="59" parent="8" name="nurse_id">
+      <column id="63" parent="8" name="nurse_id">
         <comment>工号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="60" parent="8" name="nurse_name">
+      <column id="64" parent="8" name="nurse_name">
         <comment>姓名</comment>
         <data-type>varchar(8)</data-type>
       </column>
-      <key id="61" parent="8" name="PRIMARY">
+      <key id="65" parent="8" name="PRIMARY">
         <columns>nurse_id</columns>
         <primary>1</primary>
       </key>
-      <column id="62" parent="9" name="num">
+      <column id="66" parent="9" name="num">
         <comment>室号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="63" parent="9" name="name">
+      <column id="67" parent="9" name="name">
         <comment>名称</comment>
         <data-type>varchar(20)</data-type>
       </column>
-      <key id="64" parent="9" name="PRIMARY">
+      <key id="68" parent="9" name="PRIMARY">
         <columns>num</columns>
         <primary>1</primary>
       </key>
-      <column id="65" parent="10" name="id">
+      <column id="69" parent="10" name="id">
         <comment>编号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="66" parent="10" name="name">
+      <column id="70" parent="10" name="name">
         <comment>姓名</comment>
         <mandatory>1</mandatory>
         <data-type>varchar(8)</data-type>
       </column>
-      <column id="67" parent="10" name="phone">
+      <column id="71" parent="10" name="phone">
         <comment>联系电话</comment>
         <data-type>varchar(11)</data-type>
       </column>
-      <column id="68" parent="10" name="email">
+      <column id="72" parent="10" name="email">
         <comment>邮件地址</comment>
         <data-type>varchar(20)</data-type>
       </column>
-      <column id="69" parent="10" name="birthday">
+      <column id="73" parent="10" name="birthday">
         <comment>出生日期</comment>
         <data-type>datetime</data-type>
       </column>
-      <column id="70" parent="10" name="sex">
+      <column id="74" parent="10" name="sex">
         <comment>性别</comment>
         <data-type>tinyint(4)</data-type>
       </column>
-      <column id="71" parent="10" name="address">
+      <column id="75" parent="10" name="address">
         <comment>地址</comment>
         <data-type>varchar(40)</data-type>
       </column>
-      <column id="72" parent="10" name="age">
+      <column id="76" parent="10" name="age">
         <data-type>int(11)</data-type>
       </column>
-      <key id="73" parent="10" name="PRIMARY">
+      <key id="77" parent="10" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="74" parent="11" name="doctor_id">
+      <column id="78" parent="11" name="doctor_id">
         <comment>工号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="75" parent="11" name="code">
+      <column id="79" parent="11" name="code">
         <comment>手术号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="76" parent="11" name="FKg7exbiti1e8mlcpwkxq5di1fr">
+      <index id="80" parent="11" name="FKg7exbiti1e8mlcpwkxq5di1fr">
         <columns>code</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="77" parent="11" name="PRIMARY">
+      <key id="81" parent="11" name="PRIMARY">
         <columns>doctor_id
 code</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="78" parent="11" name="FKg7exbiti1e8mlcpwkxq5di1fr">
+      <foreign-key id="82" parent="11" name="FKg7exbiti1e8mlcpwkxq5di1fr">
         <columns>code</columns>
         <ref-key>~.surgery.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="79" parent="11" name="FKtkip1qebrti1iuen9ddim6n92">
+      <foreign-key id="83" parent="11" name="FKtkip1qebrti1iuen9ddim6n92">
         <columns>doctor_id</columns>
         <ref-key>~.doctor.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="80" parent="11" name="FK_a1">
+      <foreign-key id="84" parent="11" name="FK_a1">
         <columns>code</columns>
         <ref-key>~.surgery.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="81" parent="11" name="FK_b1">
+      <foreign-key id="85" parent="11" name="FK_b1">
         <columns>doctor_id</columns>
         <ref-key>~.doctor.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="82" parent="12" name="nurse_id">
+      <column id="86" parent="12" name="nurse_id">
         <comment>工号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="83" parent="12" name="code">
+      <column id="87" parent="12" name="code">
         <comment>手术号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="84" parent="12" name="FKhs9bqfmsfvdvl3h2qjm7m18eg">
+      <index id="88" parent="12" name="FKhs9bqfmsfvdvl3h2qjm7m18eg">
         <columns>code</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="85" parent="12" name="PRIMARY">
+      <key id="89" parent="12" name="PRIMARY">
         <columns>nurse_id
 code</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="86" parent="12" name="FKan24imheqi73qf9wmlq34nbgy">
+      <foreign-key id="90" parent="12" name="FKan24imheqi73qf9wmlq34nbgy">
         <columns>nurse_id</columns>
         <ref-key>~.nurse.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="87" parent="12" name="FKhs9bqfmsfvdvl3h2qjm7m18eg">
+      <foreign-key id="91" parent="12" name="FKhs9bqfmsfvdvl3h2qjm7m18eg">
         <columns>code</columns>
         <ref-key>~.surgery.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="88" parent="12" name="FK_a2">
+      <foreign-key id="92" parent="12" name="FK_a2">
         <columns>code</columns>
         <ref-key>~.surgery.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="89" parent="12" name="FK_b2">
+      <foreign-key id="93" parent="12" name="FK_b2">
         <columns>nurse_id</columns>
         <ref-key>~.nurse.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="90" parent="13" name="id">
+      <column id="94" parent="13" name="id">
         <comment>编号</comment>
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="91" parent="13" name="position">
+      <column id="95" parent="13" name="position">
         <comment>操作部位</comment>
         <data-type>varchar(20)</data-type>
       </column>
-      <column id="92" parent="13" name="method">
+      <column id="96" parent="13" name="method">
         <comment>操作方法</comment>
         <data-type>varchar(20)</data-type>
       </column>
-      <key id="93" parent="13" name="PRIMARY">
+      <key id="97" parent="13" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="94" parent="14" name="id">
+      <column id="98" parent="14" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="95" parent="14" name="str1">
+      <column id="99" parent="14" name="str1">
         <data-type>varchar(255)</data-type>
       </column>
-      <key id="96" parent="14" name="PRIMARY">
+      <key id="100" parent="14" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="97" parent="15" name="id">
+      <column id="101" parent="15" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="98" parent="15" name="str1">
+      <column id="102" parent="15" name="str1">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="99" parent="15" name="fktest1">
+      <column id="103" parent="15" name="fktest1">
         <data-type>int(11)</data-type>
       </column>
-      <index id="100" parent="15" name="FK_71kqj0m3gbg5ykj8i77itc0yy">
+      <index id="104" parent="15" name="FK_71kqj0m3gbg5ykj8i77itc0yy">
         <columns>fktest1</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="101" parent="15" name="PRIMARY">
+      <key id="105" parent="15" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="102" parent="15" name="FK5kn2mwjnwmya3v1ogbor8cjvb">
+      <foreign-key id="106" parent="15" name="FK5kn2mwjnwmya3v1ogbor8cjvb">
         <columns>fktest1</columns>
         <ref-key>~.test1.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="103" parent="15" name="FK_71kqj0m3gbg5ykj8i77itc0yy">
+      <foreign-key id="107" parent="15" name="FK_71kqj0m3gbg5ykj8i77itc0yy">
         <columns>fktest1</columns>
         <ref-key>~.test1.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>

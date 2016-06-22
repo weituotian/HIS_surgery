@@ -13,6 +13,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" media="screen">
+    <%--自定义css--%>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css">
 </head>
 <body>
 

@@ -32,8 +32,9 @@ public class SurgeryService implements ISurgeryService {
     private ISurgeryDao surgeryDao;
 
     @Override
-    public void save(Surgery surgery) {
+    public Surgery save(Surgery surgery) {
         surgeryDao.save(surgery);
+        return surgery;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.his.surgery.action;
 
-import com.his.surgery.domain.Page;
-import com.his.surgery.domain.PageRequest;
 import com.his.surgery.entity.Doctor;
 import com.his.surgery.entity.Patient;
 import com.his.surgery.entity.Surgery;
@@ -65,7 +63,7 @@ public class SurgeryAction extends ActionSupport {
         surgery.setPatient(patient);
 
         try {
-            surgeryService.save(surgery);
+            this.surgery = surgeryService.save(surgery);
             success = true;
             msg = "添加成功！";
         } catch (Exception e) {

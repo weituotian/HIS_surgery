@@ -15,6 +15,12 @@ public class Anaesthesia {
     private Surgery sur;
     //麻醉医生
     private Doctor doctor;
+    //麻醉申请状态
+    private int state;
+    //备注
+    private String remark;
+    //记录
+    private String log;
 
     @Id
     @Column(name = "code", nullable = false)
@@ -46,6 +52,36 @@ public class Anaesthesia {
         this.method = method;
     }
 
+    @Basic
+    @Column(name = "state",nullable = true)
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    @Basic
+    @Column(name = "remark",nullable = true)
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    @Basic
+    @Column(name = "log",nullable = true)
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,7 +102,7 @@ public class Anaesthesia {
         return result;
     }
 
-    @OneToOne(fetch =FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "sur_code", referencedColumnName = "code", nullable = false)
     public Surgery getSur() {
         return sur;

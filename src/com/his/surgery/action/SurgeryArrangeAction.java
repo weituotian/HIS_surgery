@@ -36,7 +36,9 @@ public class SurgeryArrangeAction extends ActionSupport {
     private boolean success;
 
     /**
-     * 更新安排
+     * 更新安排，
+     * 手术处于申请状态则保存并进入安排状态
+     * 手术处于安排状态则修改
      * @return
      */
     public String arrange(){

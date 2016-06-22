@@ -13,6 +13,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" media="screen">
+    <%--自定义css--%>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css">
     <%--自定义style--%>
     <style>
         .container .table th, .container .table td {
@@ -28,59 +30,62 @@
         <h3 class="pull-left">手术安排</h3>
     </div>
     <div class="row table-responsive">
-            <table class="table table-striped table-hover">
-                <caption>所有已经安排的手术:</caption>
-                <thead>
+        <table class="table table-striped table-hover">
+            <caption>所有已经安排的手术:</caption>
+            <thead>
+            <tr>
+                <th>手术编号</th>
+                <th>姓名</th>
+                <th>手术日期</th>
+                <th>手术名称</th>
+                <th>主刀医生</th>
+                <th>疾病</th>
+                <th>手术室</th>
+                <th>助手</th>
+                <th>护士</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <s:iterator value="mypage.result" id="each">
                 <tr>
-                    <th>手术编号</th>
-                    <th>姓名</th>
-                    <th>手术日期</th>
-                    <th>手术名称</th>
-                    <th>主刀医生</th>
-                    <th>疾病</th>
-                    <th>手术室</th>
-                    <th>助手</th>
-                    <th>护士</th>
-                    <th>操作</th>
+                    <td><s:property value="#each.code"/></td>
+                    <td><s:property value="#each.patient.name"/></td>
+                    <td><s:date name="#each.applyTime" format="yyyy-MM-dd HH:mm:ss"/></td>
+                    <td><s:property value="#each.name"/></td>
+                    <td><s:property value="#each.doctor.name"/></td>
+                    <td><s:property value="#each.disease"/></td>
+                    <td><s:property value="#each.room.name"/></td>
+                    <td>
+                        <s:iterator value="#each.assists" var="assist">
+                            <s:property value="#assist.name"/>/
+                        </s:iterator>
+                    </td>
+                    <td>
+                        <s:iterator value="#each.nurses" var="nurse">
+                            <s:property value="#nurse.nurseName"/>/
+                        </s:iterator>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="/surgery/page_arrange/<s:property value="#each.code"/>"
+                           target="_blank">
+                            修改
+                        </a>
+                        <a class="btn btn-primary" href="/anaesthsia/page_add/<s:property value="#each.code"/>" target="_blank">
+                            麻醉<s:if test="#each.ana!=null">已</s:if>申请
+                        </a>
+                        <a class="btn btn-primary" id="anaesthsia_tolog" href="/anaesthsia/page_log/<s:property value="#each.code"/>" target="_blank">
+                            麻醉<s:if test="#each.ana.state==1">已</s:if>记录
+                        </a>
+                        <a class="btn btn-primary" href="/surgery/page_log/<s:property value="#each.code"/>"
+                           target="_blank">
+                            记录
+                        </a>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                <s:iterator value="mypage.result" id="each">
-                    <tr>
-                        <td><s:property value="#each.code"/></td>
-                        <td><s:property value="#each.patient.name"/></td>
-                        <td><s:date name="#each.applyTime" format="yyyy-MM-dd HH:mm:ss"/></td>
-                        <td><s:property value="#each.name"/></td>
-                        <td><s:property value="#each.doctor.name"/></td>
-                        <td><s:property value="#each.disease"/></td>
-                        <td><s:property value="#each.room.name"/></td>
-                        <td>
-                            <s:iterator value="#each.assists" var="assist">
-                                <s:property value="#assist.name"/>/
-                            </s:iterator>
-                        </td>
-                        <td>
-                            <s:iterator value="#each.nurses" var="nurse">
-                                <s:property value="#nurse.nurseName"/>/
-                            </s:iterator>
-                        </td>
-                        <td>
-                            <a class="btn btn-primary" href="/surgery/page_arrange/<s:property value="#each.code"/>"
-                               target="_blank">
-                                修改
-                            </a>
-                            <a class="btn btn-primary" href="/anaesthsia/page_add/<s:property value="#each.code"/>" target="_blank">
-                                麻醉申请
-                            </a>
-                            <a class="btn btn-primary" href="/surgery/page_log/<s:property value="#each.code"/>"
-                               target="_blank">
-                                记录
-                            </a>
-                        </td>
-                    </tr>
-                </s:iterator>
-                </tbody>
-            </table>
+            </s:iterator>
+            </tbody>
+        </table>
     </div>
     <div class="row text-center">
         <%--分页条--%>

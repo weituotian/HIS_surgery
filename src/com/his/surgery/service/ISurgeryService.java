@@ -15,7 +15,7 @@ public interface ISurgeryService {
      *
      * @param surgery
      */
-    void save(Surgery surgery);
+    Surgery save(Surgery surgery);
 
     /**
      * 寻找手术

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <table id="patient_table" class="table">
-    <caption>输入病人编号获得信息:</caption>
+    <caption>病人信息:</caption>
     <tbody>
     <tr>
         <th rowspan="3">病人信息</th>
@@ -25,7 +25,12 @@
         <th>性别：</th>
         <td>
             <label>
-                <input id="t_sex" type="text" class="form-control" readonly="readonly" value="<s:property value="surgery.patient.sex"/>">
+                <s:if test="surgery.patient.sex==1">
+                    <input id="t_sex" type="text" class="form-control" readonly="readonly" value="男">
+                </s:if>
+                <s:else>
+                    <input id="t_sex" type="text" class="form-control" readonly="readonly" value="女">
+                </s:else>
             </label>
         </td>
     </tr>

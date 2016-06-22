@@ -14,6 +14,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" media="screen">
+    <%--自定义css--%>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css">
     <style>
         input.common {
             width: 100%;
@@ -27,6 +29,7 @@
 <body>
 
 <div class="container">
+    <jsp:include page="common/nav.jsp"/>
     <%--两种方式都可以include文件--%>
     <%@include file="common/patient.jsp" %>
     <jsp:include page="common/surgery1.jsp"/>
@@ -35,6 +38,27 @@
     <div class="row">
         <a id="btn_arrange" class="btn btn-primary">安排</a>
         <a id="btn_cancel" class="btn btn-primary">取消安排</a>
+        <s:if test="surgery.state==1">
+            <%--手术已经处于安排状态--%>
+
+            <%--显示麻醉申请--%>
+            <a class="btn btn-primary" href="/anaesthsia/page_add/<s:property value="surgery.code"/>" target="_blank">
+                麻醉<s:if test="#each.ana!=null">已</s:if>申请
+            </a>
+
+            <s:if test="surgery.ana!=null">
+                <%--麻醉申请过了才显示记录--%>
+                <a class="btn btn-primary" href="/anaesthsia/page_add/<s:property value="surgery.code"/>" target="_blank">
+                    麻醉<s:if test="surgery.ana.state==1">已</s:if>记录
+                </a>
+
+                <s:if test="surgery.ana.state==1">
+                    <%--麻醉记录过了才显示可以进行手术记录--%>
+                    <a class="btn btn-primary" href="/surgery/page_log/<s:property value="surgery.code"/>" target="_blank">进行手术记录</a>
+                </s:if>
+            </s:if>
+
+        </s:if>
     </div>
 </div>
 <%--模态框--%>
@@ -49,7 +73,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         //手术室选择框
-        var $input_room=$('#input_room').attr("disabled",false);
+        var $input_room = $('#input_room').attr("disabled", false);
 
         //添加助手按钮
         var add_assist = $('#add_assist');

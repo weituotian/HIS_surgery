@@ -14,7 +14,12 @@
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
+    <%--自定义css--%>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css">
     <style>
+        body{
+            font-family: 微软雅黑, sans-serif;
+        }
         input.common {
             width: 100%;
         }
@@ -28,6 +33,7 @@
 
 
 <div class="container">
+    <jsp:include page="common/nav.jsp"/>
     <div class="row">
         <s:if test='#request.type=="update"'>
             <h3>当前正在修改手术编号：<s:property value="#request.sid"/></h3>
@@ -40,6 +46,7 @@
     <div class="row">
         <button type="button" class="btn btn-primary" id="sur_submit">提交</button>
         <button type="button" class="btn btn-primary" id="sur_save">保存修改</button>
+        <a id="surgery_to_arrange" style="display: none" class="btn btn-primary" href="/surgery/page_arrange/<s:property value="surgery.code"/>">进行手术安排</a>
     </div>
 </div>
 
@@ -94,7 +101,6 @@
                 $this.val("");
             });
         }
-
 
         //病人名字
         var $t_name = $('#t_name');
@@ -210,7 +216,12 @@
                 },
                 success: function (rdata, textStatus) {
                     //var data = $.parseJSON(rdata);
-                    showDialog(rdata.msg);
+                    showDialog(rdata.msg, function () {
+                        if (rdata.success){
+                            //如果成功,页面跳转到修改手术申请页面
+                            window.location.href = "/surgery/page_update/" + rdata.surgery.code;
+                        }
+                    });
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert(XMLHttpRequest + textStatus + errorThrown);
@@ -305,6 +316,8 @@
         if (operateType == "update") {
             //如果是修改手术申请的状况
             //initData();
+            //显示去手术安排的按钮
+            $('#surgery_to_arrange').show();
 
             $t_id.attr("readonly", false);
             $sur_doctor.attr("readonly", false);
@@ -321,12 +334,14 @@
             $btn_submit.hide();
         } else if (operateType == "view") {
             //查看的情况
+
             //initData();
             //使只读
 //            $t_id.attr("readonly","readonly");
 //            $sur_doctor.attr("readonly","readonly");
 //            $sur_name.attr("readonly","readonly");
 //            $sur_disease.attr("readonly","readonly");
+
             //取消时间选择功能
             $time.datetimepicker("remove");
             //隐藏两个按钮

@@ -18,11 +18,20 @@
 <body>
 
 <div class="container">
+    <jsp:include page="common/nav.jsp"/>
     <%--两种方式都可以include文件--%>
     <%@include file="common/patient.jsp" %>
     <jsp:include page="common/surgery1.jsp"/>
     <jsp:include page="common/surgery2.jsp"/>
+
+    <%--麻醉相关--%>
+    <div class="row">
+        <h3>麻醉:</h3>
+        <a class="btn btn-primary" href="/anaesthsia/page_log/<s:property value="surgery.code"/>" target="_blank">查看麻醉</a>
+    </div>
+
     <jsp:include page="common/surgery3.jsp"/>
+
     <div class="row">
         <a id="btn_savelog" class="btn btn-primary">保存记录</a>
     </div>

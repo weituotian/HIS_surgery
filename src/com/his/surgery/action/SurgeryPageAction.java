@@ -2,11 +2,13 @@ package com.his.surgery.action;
 
 import com.his.surgery.domain.Page;
 import com.his.surgery.domain.PageRequest;
+import com.his.surgery.entity.Anaesthesia;
 import com.his.surgery.entity.Operationroom;
 import com.his.surgery.entity.Surgery;
 import com.his.surgery.service.IRoomService;
 import com.his.surgery.service.ISurgeryService;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ErrorMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Controller;
 import java.util.List;
 
 /**
- * Created by ange on 2016/6/20.
+ *
  */
 @Controller("surgeryPageAction")
 @Scope(value = "prototype")
@@ -52,6 +54,9 @@ public class SurgeryPageAction extends ActionSupport {
     //指定手术状态
     private int state;
 
+    //错误信息
+    private String errormsg;
+
     /**
      * 页面分发
      *
@@ -82,9 +87,11 @@ public class SurgeryPageAction extends ActionSupport {
             case "arrange"://手术安排
                 surgery = surgeryService.eagerFindById(sid);
                 roomlist = roomService.getlist();
-                if (surgery.getState()<=1) {//做了手术记录的不能再做手术安排
+                if (surgery.getState() <= 1) {
+                    //手术申请状态就安排，手术处于安排状态则修改
                     flag = "page2";
-                }else {
+                } else {
+                    errormsg = "做了手术记录的不能再做手术安排";
                     flag = "errorpage";
                 }
                 break;
@@ -92,16 +99,31 @@ public class SurgeryPageAction extends ActionSupport {
             case "log"://手术记录
                 surgery = surgeryService.eagerFindById(sid);
                 roomlist = roomService.getlist();
-                flag = "log";
+                Anaesthesia anaesthesia = surgery.getAna();
+                if (anaesthesia == null) {
+                    //还没有麻醉申请
+                    errormsg = "还没有进行麻醉申请，请先进行麻醉申请";
+                    flag = "errorpage";
+                } else {
+                    if (anaesthesia.getState() == 0) {
+                        //麻醉处于申请状态
+                        errormsg = "请先进行麻醉记录";
+                        flag = "errorpage";
+                    } else {
+                        flag = "log";
+                    }
+                }
                 break;
 
             default:
                 //type不符合任何一个操作类型，返回错误页面
+                errormsg = "到了无人的页面了";
                 flag = "errorpage";
         }
 
         //检查有没有该手术，没有就跳到错误页面
         if (surgery == null) {
+            errormsg = "服务器君找不到该手术了！";
             return "errorpage";
         }
 
@@ -193,5 +215,13 @@ public class SurgeryPageAction extends ActionSupport {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public String getErrormsg() {
+        return errormsg;
+    }
+
+    public void setErrormsg(String errormsg) {
+        this.errormsg = errormsg;
     }
 }
