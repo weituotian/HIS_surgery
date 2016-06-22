@@ -22,6 +22,11 @@ public class NurseService implements INurseService {
     @Qualifier("nurseDao")
     private INurseDao nurseDao;
 
+    /**
+     * 获取护士信息
+     * @param id 护士id
+     * @return 护士
+     */
     @Override
     public Nurse getNurse(Integer id) {
         return nurseDao.findById(id);

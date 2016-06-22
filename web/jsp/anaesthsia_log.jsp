@@ -42,6 +42,11 @@
     </div>
     <div class="row">
         <button type="button" class="btn btn-primary" id="anaesthsia_logsubmit">保存麻醉记录</button>
+        <s:if test="surgery.ana.state==1">
+            <%--进行完麻醉记录可以跳到手术记录--%>
+            <a class="btn btn-primary" href="/surgery/page_log/<s:property value="surgery.code"/>"
+               target="_blank">麻醉记录完成，可去进行手术记录</a>
+        </s:if>
     </div>
 </div>
 

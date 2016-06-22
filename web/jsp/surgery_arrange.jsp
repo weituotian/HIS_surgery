@@ -212,14 +212,13 @@
                 //数组发送
                 traditional: true,
                 success: function (rdata, textStatus) {
-                    //var data = $.parseJSON(rdata);
                     //回调函数
-                    if (rdata.success) {
-
-                    } else {
-
-                    }
-                    showDialog(rdata.msg);
+                    showDialog(rdata.msg, function () {
+                        if (rdata.success) {
+                            //如果安排成功,刷新一下页面
+                            window.location.reload(true);
+                        }
+                    });
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert(XMLHttpRequest + textStatus + errorThrown);

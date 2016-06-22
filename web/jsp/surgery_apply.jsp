@@ -23,7 +23,6 @@
         input.common {
             width: 100%;
         }
-
         .container .table th, .container .table td {
             padding: 8px 0 8px 0;
         }
