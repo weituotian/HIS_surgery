@@ -38,38 +38,7 @@
             <div class="description">详细的手术检查与记录</div>
         </div>
     </div>
-    <div class="pageFooter">
-        <div class="contact">
-            <ul>
-                <h4>关于HealthCare</h4>
-                <li>关于我们</li>
-                <li>联系我们</li>
-                <li>加入我们</li>
-            </ul>
-        </div>
-        <div class="contact">
-            <ul>
-                <h4>如何使用</h4>
-                <li>帮助</li>
-            </ul>
-        </div>
-        <div class="contact">
-            <ul>
-                <h4>社区</h4>
-            </ul>
-        </div>
-        <div class="contact">
-            <ul>
-                <h4>一切尽在</h4>
-                <li><img src="${pageContext.request.contextPath}/images/footer.png" alt="页脚图" height="64" width="64"/></li>
-            </ul>
-        </div>
-        <div class="copyright">Icons made by <a href="http://www.flaticon.com/authors/madebyoliver"
-                                                title="Madebyoliver">Madebyoliver</a> from <a
-                href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a
-                href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"
-                target="_blank">CC 3.0 BY</a></div>
-    </div>
+<jsp:include page="jsp/common/footer.jsp"/>
 </div>
 
 

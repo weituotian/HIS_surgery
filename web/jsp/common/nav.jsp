@@ -4,7 +4,7 @@
         <a class="navbar-brand" href="/">手术麻醉管理系统</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a href="#">关于我们</a></li>
+        <li><a href="/about_us.jsp">关于我们</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">手术<b class="caret"></b></a>
             <ul class="dropdown-menu">

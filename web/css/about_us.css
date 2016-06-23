@@ -1,0 +1,100 @@
+body{
+    font: normal 100% SimSun, Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+    margin:0;
+    outline:none;
+    font-size:18px;
+    background-color: #eee;
+}
+
+.containerAbout{
+    margin:0 auto;
+    width:960px;
+    height:800px;
+    background-color: #F5F5F5;
+}
+
+.content{
+    margin:0 auto;
+    width:90%;
+    height:70%;
+}
+
+.about_us_header{
+    color: rgb(128, 128, 128);
+    height: 20%;
+}
+
+h4{
+    margin-left: 20px;
+    font-size: 30px;
+    padding-top: 40px;
+}
+
+.about_us_body{
+
+    height:80%;
+    width:100%;
+
+}
+
+.block1{
+    width:20%;
+    height:100%;
+    float: left;
+    background-color: #8fccb3;
+}
+
+#pic_doctor{
+    display:block;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.block2{
+    float:left;
+    width:80%;
+    height:100%;
+    background-color: white;
+}
+
+.articles1{
+    height:55%;
+
+}
+
+p{
+    margin: 20px 0 10px;
+    text-align: left;
+    display:block;
+    font-size: 25px;
+    padding: 0 10px 10px 10px;
+
+}
+
+.articles2{
+    height:25%;
+
+}
+
+.articles2 ul li{
+    list-style:none;
+    margin-top: 20px;
+
+}
+
+.articles2 ul li a{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: #8fccb3;
+}
+
+#hr1{
+    margin-left: 10px;
+    border: 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #fff;
+}
+
+a{
+    text-decoration: none;
+}

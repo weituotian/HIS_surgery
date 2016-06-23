@@ -1,0 +1,82 @@
+body{
+    font: normal 100% SimSun, Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+    margin:0;
+    outline:none;
+    font-size:18px;
+    background-color: #eee;
+}
+
+.container{
+    margin:0px auto;
+    width:960px;
+    height:800px;
+    background-color: #F5F5F5;
+}
+
+.content{
+    margin:0px auto;
+    width:90%;
+    height:70%;
+}
+
+.about_us_header{
+    color: rgb(128, 128, 128);
+    height: 20%;
+}
+
+h4{
+    margin-left: 20px;
+    font-size: 30px;
+    padding-top: 40px;
+}
+
+.about_us_body{
+
+    height:80%;
+    width:100%;
+
+}
+
+.block1{
+    width:20%;
+    height:100%;
+    float: left;
+    background-color: #8fccb3;
+}
+
+#pic_doctor{
+    display:block;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.block2{
+    float:left;
+    width:80%;
+    height:100%;
+    background-color: white;
+}
+
+.articles1{
+    height:55%;
+
+}
+
+p{
+    text-align: center;
+    display:block;
+    font-size: 25px;
+    margin-top:30%;
+    margin-right: 20%;
+}
+
+#hr1{
+    margin-left: 10px;
+    border: 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #fff;
+}
+
+a{
+    text-decoration: none;
+}
