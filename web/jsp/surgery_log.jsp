@@ -17,8 +17,8 @@
 </head>
 <body>
 
+<jsp:include page="common/nav.jsp"/>
 <div class="container">
-    <jsp:include page="common/nav.jsp"/>
     <%--两种方式都可以include文件--%>
     <%@include file="common/patient.jsp" %>
     <jsp:include page="common/surgery1.jsp"/>

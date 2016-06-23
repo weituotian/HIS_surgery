@@ -15,8 +15,8 @@
 </head>
 <body>
 
+<jsp:include page="common/nav.jsp"/>
 <div class="container">
-    <jsp:include page="common/nav.jsp"/>
     <div class="row">
         <h3 class="pull-left">麻醉记录</h3>
     </div>
@@ -44,12 +44,7 @@
                     <td>
                         <s:if test="#each.sur.state>=1">
                             <a class="btn btn-primary" href="/surgery/page_log/<s:property value="#each.sur.code"/>" target="_blank">
-                                <s:if test="#each.sur.state<2">
-                                    新建
-                                </s:if>
-                                <s:else>
-                                    修改
-                                </s:else>手术记录
+                                <s:if test="#each.sur.state<2">新建</s:if><s:else>修改</s:else>手术记录
                             </a>
                             <a class="btn btn-primary" href="/anaesthsia/page_log/<s:property value="#each.sur.code"/>"
                                target="_blank">

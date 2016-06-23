@@ -24,8 +24,8 @@
 </head>
 <body>
 
+<jsp:include page="common/nav.jsp"/>
 <div class="container">
-    <jsp:include page="common/nav.jsp"/>
     <div class="row">
         <h3 class="pull-left">手术安排</h3>
     </div>

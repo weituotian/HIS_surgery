@@ -17,9 +17,8 @@
 </head>
 <body>
 
-
+<jsp:include page="jsp/common/nav.jsp"/>
 <div class="container">
-    <jsp:include page="jsp/common/nav.jsp"/>
     <div class="header">
         <img id="icon" src="${pageContext.request.contextPath}/images/footer.png" alt="页脚图" height="64" width="64"/>
         <h1>Anaesthesia Information Management System</h1>
@@ -38,9 +37,17 @@
             <div class="description">详细的手术检查与记录</div>
         </div>
     </div>
+
+
 <jsp:include page="jsp/common/footer.jsp"/>
+
 </div>
 
+<style scoped>
+    .pageFooter{
+        margin-top: 100px;
+    }
+</style>
 
 <script src="${pageContext.request.contextPath}/js/jquery-1.9.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>

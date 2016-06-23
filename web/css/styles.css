@@ -7,13 +7,14 @@ body {
     margin: 0;
     outline: none;
     /*font-size:12px;*/
+    background-color: #eee;
+
 }
 
-/*.container {*/
-    /*margin: 0 auto;*/
-    /*width: 1280px;*/
-    /*height: 800px;*/
-/*}*/
+.container{
+    width:1200px;
+    height:800px;
+}
 
 #icon {
     display: block;
@@ -27,6 +28,7 @@ body {
     margin-left: 0;
     width: 90%;
     padding: 60px 60px 60px 0;
+    height:20%;
 }
 
 h1 {
@@ -39,8 +41,7 @@ h1 {
 }
 
 .content {
-    margin-top: 100px;
-    height: 50%;
+    height: 40%;
 }
 
 .image {
@@ -60,7 +61,7 @@ h1 {
 }
 
 .description {
-    color: white;
+    color: black;
     text-align: center;
     font-weight: bold;
     font-size: 2em;

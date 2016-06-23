@@ -18,10 +18,8 @@
 
 <body>
 
-<div class="container">
-    <jsp:include page="jsp/common/nav.jsp"/>
-</div>
 
+<jsp:include page="jsp/common/nav.jsp"/>
 <div class="containerAbout">
 
     <div class="content">
@@ -69,7 +67,7 @@
         </div>
     </div>
 
-<jsp:include page="jsp/common/footer.jsp"/>
+    <jsp:include page="jsp/common/footer.jsp"/>
 </div>
 
 <script src="${pageContext.request.contextPath}/js/jquery-1.9.1.min.js"></script>

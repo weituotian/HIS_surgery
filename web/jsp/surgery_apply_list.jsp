@@ -13,13 +13,14 @@
 
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" media="screen">
+
     <%--自定义css--%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css">
 </head>
 <body>
 
+<jsp:include page="common/nav.jsp"/>
 <div class="container">
-    <jsp:include page="common/nav.jsp"/>
     <div class="row">
         <h3 class="pull-left">手术申请</h3>
         <a class="btn btn-primary pull-right" href="/surgery/page_add" target="_blank"><span class="glyphicon glyphicon-plus"></span>新建手术申请</a>

@@ -6,6 +6,7 @@
         height: 24%;
         margin-bottom: 10px;
         font-family: 宋体, serif;
+        /*margin-top: 80px;*/
     }
 
     .contact {

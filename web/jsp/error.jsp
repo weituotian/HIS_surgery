@@ -17,13 +17,10 @@
 </head>
 
 <body>
-<div class="container">
-    <jsp:include page="common/nav.jsp"/>
-</div>
 
-<div class="container">
-    <div class="header">
-    </div>
+
+<jsp:include page="common/nav.jsp"/>
+<div class="containerAbout">
 
     <div class="content">
         <div class="about_us_header">
@@ -35,7 +32,7 @@
             </div>
             <div class="block2">
                 <div class="articles1">
-                    <p>
+                    <p style="color: #8fccb3;">
                         <s:property value="errormsg"/>
                     </p>
                 </div>

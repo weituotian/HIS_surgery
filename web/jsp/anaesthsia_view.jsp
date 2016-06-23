@@ -15,8 +15,8 @@
 </head>
 <body>
 
+<jsp:include page="common/nav.jsp"/>
 <div class="container">
-    <jsp:include page="common/nav.jsp"/>
     <h3>麻醉申请查看</h3>
     <s:if test="surgery.state==0">
         <h3>(已失效)(手术处于申请状态,不在已安排状态)</h3>

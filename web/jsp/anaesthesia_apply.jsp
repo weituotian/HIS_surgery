@@ -15,8 +15,9 @@
 </head>
 <body>
 
+
+<jsp:include page="common/nav.jsp"/>
 <div class="container">
-    <jsp:include page="common/nav.jsp"/>
     <h3>麻醉申请
         <s:if test="surgery.ana==null">
             (手术编号为<s:property value="surgery.code"/>,尚未提交麻醉申请)

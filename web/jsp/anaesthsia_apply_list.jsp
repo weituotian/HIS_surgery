@@ -15,8 +15,9 @@
 
 </head>
 <body>
+
+<jsp:include page="common/nav.jsp"/>
 <div class="container">
-    <jsp:include page="common/nav.jsp"/>
     <div class="row">
         <h3 class="pull-left">麻醉申请</h3>
     </div>

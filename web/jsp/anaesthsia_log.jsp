@@ -15,9 +15,8 @@
 </head>
 <body>
 
+<jsp:include page="common/nav.jsp"/>
 <div class="container">
-    <jsp:include page="common/nav.jsp"/>
-
     <h3>麻醉记录(手术编号为<s:property value="surgery.code"/>)
         <s:if test="surgery.ana.state==1">
             <%--进行完麻醉记录可以跳到手术记录--%>

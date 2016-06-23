@@ -30,9 +30,8 @@
 </head>
 <body>
 
-
+<jsp:include page="common/nav.jsp"/>
 <div class="container">
-    <jsp:include page="common/nav.jsp"/>
     <div class="row">
         <s:if test='#request.type=="update"'>
             <h3>当前正在修改手术编号：<s:property value="#request.sid"/></h3>
